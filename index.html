@@ -1,703 +1,154 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0B1020">
-  <meta name="description" content="Tloribless — study notes, books, practice questions and skills to help you take your next move.">
-  <title>Tloribless — Built for Your Next Move</title>
-
-  <style>
-    :root {
-      --bg: #0B1020;
-      --panel: #11182B;
-      --panel2: #161F35;
-      --purple: #8B5CF6;
-      --cyan: #06B6D4;
-      --pink: #F472B6;
-      --text: #F4F6FF;
-      --muted: #A2ADC5;
-      --border: rgba(255,255,255,.09);
-      --radius: 18px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at 75% 0%, rgba(139,92,246,.13), transparent 36%),
-        var(--bg);
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.6;
-    }
-    button, input, select { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; }
-    button:focus-visible, a:focus-visible, input:focus-visible {
-      outline: 2px solid var(--cyan);
-      outline-offset: 3px;
-    }
-    .wrap { width: min(1160px, 92%); margin: auto; }
-    .muted { color: var(--muted); }
-    .eyebrow {
-      color: #BDA5FF; font-size: .76rem; font-weight: 800;
-      letter-spacing: 2px; text-transform: uppercase;
-    }
-    .topbar {
-      text-align: center; padding: 8px 12px;
-      background: linear-gradient(90deg, #6D35D7, #164E80);
-      font-size: .78rem; font-weight: 650;
-    }
-    header {
-      position: sticky; top: 0; z-index: 20;
-      background: rgba(11,16,32,.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav {
-      min-height: 76px; display: flex; align-items: center;
-      justify-content: space-between; gap: 16px;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .logo {
-      width: 43px; height: 43px; flex-shrink: 0;
-      display: grid; place-items: center; border-radius: 14px;
-      color: white; font-size: 23px; font-weight: 900;
-      background: linear-gradient(140deg, var(--purple), var(--cyan));
-      box-shadow: 0 5px 24px rgba(139,92,246,.24);
-    }
-    .brand-name { font-size: 1.2rem; font-weight: 850; letter-spacing: -.5px; }
-    .tagline { color: var(--muted); font-size: .68rem; }
-    .nav-links { display: flex; align-items: center; gap: 20px; }
-    .nav-links a { font-size: .86rem; color: #D1D7E8; }
-    .nav-links a:hover { color: var(--cyan); }
-    .nav-actions { display: flex; gap: 8px; align-items: center; }
-    .icon-btn, .menu-btn {
-      border: 1px solid var(--border); background: var(--panel);
-      color: var(--text); border-radius: 12px; padding: 9px 12px;
-    }
-    .menu-btn { display: none; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 7px; border: 0; border-radius: 12px; padding: 11px 17px;
-      font-weight: 750; color: white;
-      background: linear-gradient(110deg, var(--purple), #6D5CE8);
-      box-shadow: 0 5px 18px rgba(139,92,246,.17);
-      transition: transform .2s, filter .2s;
-    }
-    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-    .btn-secondary {
-      background: var(--panel2); border: 1px solid var(--border);
-      box-shadow: none;
-    }
-    .btn-cyan { background: linear-gradient(110deg, #0891B2, var(--cyan)); }
-    .hero { padding: 62px 0 38px; }
-    .hero-grid {
-      display: grid; grid-template-columns: 1.15fr .85fr;
-      gap: 38px; align-items: center;
-    }
-    h1 {
-      font-size: clamp(2.35rem, 5.5vw, 4.25rem);
-      line-height: 1.1; letter-spacing: -2px; margin: 15px 0 18px;
-    }
-    .gradient-text {
-      background: linear-gradient(95deg, #C4B5FD, #67E8F9);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .hero-copy { max-width: 590px; color: var(--muted); font-size: 1.02rem; }
-    .hero-buttons { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 24px; }
-    .hero-note { font-size: .78rem; color: var(--muted); margin-top: 17px; }
-    .hero-art {
-      position: relative; min-height: 300px; display: grid; place-items: center;
-      border: 1px solid var(--border); border-radius: 28px; overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(139,92,246,.26), transparent 45%),
-        linear-gradient(145deg, #171F39, #101629);
-    }
-    .orbit {
-      width: 210px; height: 210px; border: 1px solid rgba(103,232,249,.4);
-      border-radius: 50%; display: grid; place-items: center;
-      box-shadow: 0 0 70px rgba(139,92,246,.13);
-    }
-    .book-emoji { font-size: 94px; filter: drop-shadow(0 12px 22px #050816); }
-    .float-card {
-      position: absolute; background: rgba(17,24,43,.95);
-      border: 1px solid var(--border); border-radius: 13px;
-      padding: 11px 14px; box-shadow: 0 12px 35px #070B16;
-      font-size: .8rem;
-    }
-    .float-card strong { display: block; font-size: .95rem; }
-    .float-one { top: 24px; left: 16px; }
-    .float-two { bottom: 24px; right: 14px; }
-    .float-three { bottom: 24px; left: 16px; }
-    .stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-      margin-top: 30px;
-    }
-    .stat { padding: 15px; border: 1px solid var(--border); border-radius: 15px; background: rgba(17,24,43,.6); }
-    .stat strong { display: block; font-size: 1.25rem; }
-    .stat span { color: var(--muted); font-size: .75rem; }
-    section { padding: 36px 0; scroll-margin-top: 85px; }
-    .section-head {
-      display: flex; justify-content: space-between; align-items: end;
-      gap: 15px; margin-bottom: 22px;
-    }
-    h2 { margin: 5px 0; font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.25; }
-    .section-desc { color: var(--muted); font-size: .9rem; margin: 5px 0 0; }
-    .search-panel {
-      display: flex; gap: 10px; padding: 10px;
-      background: var(--panel); border: 1px solid var(--border); border-radius: 17px;
-    }
-    .search-panel input {
-      flex: 1; min-width: 0; color: var(--text); background: transparent;
-      border: 0; outline: 0; padding: 8px 10px;
-    }
-    .search-panel input::placeholder { color: #8793AD; }
-    .chips { display: flex; flex-wrap: wrap; gap: 9px; margin: 17px 0 22px; }
-    .chip {
-      border: 1px solid var(--border); background: var(--panel);
-      color: #C7D0E4; border-radius: 100px; padding: 8px 14px;
-      font-size: .8rem;
-    }
-    .chip.active, .chip:hover { color: white; background: #35245E; border-color: var(--purple); }
-    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
-    .category {
-      display: block; text-align: left; padding: 19px; min-height: 148px;
-      background: linear-gradient(145deg, var(--panel2), var(--panel));
-      border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);
-      transition: transform .2s, border-color .2s;
-    }
-    .category:hover { transform: translateY(-3px); border-color: var(--purple); }
-    .category-icon {
-      width: 43px; height: 43px; display: grid; place-items: center;
-      border-radius: 13px; background: rgba(139,92,246,.16);
-      font-size: 22px; margin-bottom: 13px;
-    }
-    .category strong { display: block; font-size: .93rem; }
-    .category span { display: block; color: var(--muted); font-size: .77rem; margin-top: 5px; }
-    .resource-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .resource {
-      overflow: hidden; background: var(--panel); border: 1px solid var(--border);
-      border-radius: var(--radius); display: flex; flex-direction: column;
-    }
-    .resource-cover {
-      min-height: 145px; display: grid; place-items: center;
-      background: radial-gradient(circle at 50% 30%, rgba(139,92,246,.3), transparent 55%), #151E34;
-      font-size: 50px; position: relative;
-    }
-    .pill {
-      position: absolute; top: 12px; left: 12px; padding: 4px 9px;
-      border-radius: 100px; font-size: .69rem; font-weight: 800;
-      background: rgba(6,182,212,.15); color: #67E8F9; border: 1px solid rgba(6,182,212,.22);
-    }
-    .pill.paid { color: #F0ABFC; background: rgba(192,38,211,.13); border-color: rgba(192,38,211,.2); }
-    .resource-body { padding: 17px; display: flex; flex: 1; flex-direction: column; }
-    .resource-type { color: #BDA5FF; text-transform: uppercase; letter-spacing: 1px; font-size: .68rem; font-weight: 800; }
-    .resource h3 { font-size: 1rem; margin: 7px 0; line-height: 1.4; }
-    .resource p { font-size: .81rem; color: var(--muted); margin: 0 0 17px; }
-    .resource-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
-    .resource-foot .btn { padding: 8px 12px; font-size: .78rem; }
-    .price { font-size: .82rem; font-weight: 800; }
-    .book-feature {
-      display: grid; grid-template-columns: .75fr 1.25fr; gap: 25px; align-items: center;
-      padding: 28px; border: 1px solid var(--border); border-radius: 23px;
-      background: linear-gradient(120deg, rgba(139,92,246,.13), rgba(6,182,212,.06));
-    }
-    .book-stack {
-      min-height: 200px; display: grid; place-items: center;
-      border-radius: 18px; background: #131C32; font-size: 75px;
-    }
-    .book-feature p { color: var(--muted); }
-    .feature-list { padding-left: 19px; color: #D6DEEF; font-size: .9rem; }
-    .feature-list li { margin: 7px 0; }
-    .progress-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
-    .progress-card { background: var(--panel); border: 1px solid var(--border); padding: 18px; border-radius: 16px; }
-    .progress-card strong { font-size: 1.45rem; display: block; }
-    .progress-card span { color: var(--muted); font-size: .8rem; }
-    .progress-track { height: 6px; background: #273149; border-radius: 9px; margin-top: 12px; overflow: hidden; }
-    .progress-track div { height: 100%; border-radius: 9px; background: linear-gradient(90deg, var(--purple), var(--cyan)); }
-    .cta {
-      padding: 30px; border-radius: 22px; text-align: center;
-      border: 1px solid rgba(139,92,246,.3);
-      background: radial-gradient(ellipse at top, rgba(139,92,246,.2), transparent 70%), var(--panel);
-    }
-    .cta p { color: var(--muted); }
-    footer { border-top: 1px solid var(--border); padding: 28px 0; margin-top: 30px; }
-    .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: .8rem; }
-    .fine-print { color: var(--muted); font-size: .74rem; margin-top: 20px; }
-    .notice {
-      display: none; position: fixed; z-index: 50; bottom: 20px; left: 50%;
-      transform: translateX(-50%); width: min(92%, 450px); padding: 14px 16px;
-      background: #1A2540; border: 1px solid #534080; border-radius: 14px;
-      box-shadow: 0 12px 40px #0008; font-size: .86rem;
-    }
-    .notice.show { display: block; }
-    .empty-state { display: none; color: var(--muted); text-align: center; padding: 25px; }
-    #profileMenu {
-      display: none; position: absolute; right: 4%; top: 68px; width: 220px;
-      background: var(--panel2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 10px; box-shadow: 0 15px 40px #0008;
-    }
-    #profileMenu.show { display: block; }
-    #profileMenu button { width: 100%; text-align: left; background: transparent; color: var(--text); border: 0; padding: 10px; border-radius: 8px; }
-    #profileMenu button:hover { background: #29324A; }
-    @media (max-width: 850px) {
-      .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 18px 4%; background: #0E1426; border-bottom: 1px solid var(--border); flex-direction: column; align-items: stretch; gap: 14px; }
-      .nav-links.open { display: flex; }
-      .menu-btn { display: inline-flex; }
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-art { min-height: 260px; }
-      .category-grid { grid-template-columns: repeat(2, 1fr); }
-      .resource-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 540px) {
-      .nav { min-height: 67px; gap: 7px; }
-      .logo { width: 38px; height: 38px; }
-      .brand-name { font-size: 1.05rem; }
-      .tagline { font-size: .61rem; }
-      .nav-actions { gap: 5px; }
-      .nav-actions .btn { padding: 9px 10px; font-size: .76rem; }
-      .nav-actions .icon-btn { padding: 8px 9px; }
-      .hero { padding-top: 40px; }
-      h1 { letter-spacing: -1.2px; }
-      .hero-art { min-height: 235px; }
-      .orbit { width: 165px; height: 165px; }
-      .book-emoji { font-size: 72px; }
-      .float-card { font-size: .7rem; padding: 8px 10px; }
-      .stats { gap: 7px; }
-      .stat { padding: 10px; }
-      .stat strong { font-size: 1.05rem; }
-      .stat span { font-size: .68rem; }
-      section { padding: 27px 0; }
-      .section-head { align-items: start; flex-direction: column; }
-      .search-panel { gap: 5px; }
-      .search-panel .btn { padding: 9px 11px; }
-      .category-grid { gap: 9px; }
-      .category { padding: 13px; min-height: 135px; }
-      .category strong { font-size: .84rem; }
-      .category span { font-size: .72rem; }
-      .resource-grid { grid-template-columns: 1fr; }
-      .resource-cover { min-height: 125px; }
-      .book-feature { grid-template-columns: 1fr; padding: 17px; }
-      .book-stack { min-height: 130px; }
-      .progress-grid { grid-template-columns: 1fr; }
-      .cta { padding: 23px 17px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Tloribless — study resources, notes, projects, quizzes and mock exams.">
+<title>Tloribless — Study Resources</title>
+<style>
+:root{--ink:#17212b;--muted:#697783;--line:#e8edf0;--paper:#fff;--wash:#f7f9fa;--teal:#087e83;--teal-deep:#075e64;--teal-soft:#eaf8f7;--gold:#d6a73c;--gold-soft:#fff8e8;--blue-soft:#eef5ff;--shadow:0 10px 30px rgba(18,36,45,.055);--radius:18px;--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:110px}body{margin:0;background:#fff;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}button,input{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #63bdc0;outline-offset:3px}a{color:inherit;text-decoration:none}.icon{width:21px;height:21px;display:block;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.app-shell{max-width:1440px;margin:0 auto;min-height:100vh}.topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:10px clamp(12px,3vw,32px)}.topbar-inner{display:flex;align-items:center;gap:14px;max-width:1340px;margin:auto}.brand{width:62px;height:62px;display:flex;align-items:center;justify-content:center;flex:none;border-radius:14px;overflow:hidden;background:#030b0b}.brand img{width:100%;height:100%;object-fit:cover}.search-wrap{flex:1;min-width:50px;position:relative}.search-box{height:46px;border:1px solid #e2e8eb;background:#f8fafb;border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 14px;transition:border .18s,box-shadow .18s,background .18s}.search-box:focus-within{border-color:#73bfc0;background:white;box-shadow:0 0 0 3px rgba(8,126,131,.08)}.search-box .icon{color:#52616c}.search-box input{border:0;outline:0;background:transparent;width:100%;min-width:0;color:var(--ink);font-size:14px}.search-box input::placeholder{color:#84919a}.top-actions{display:flex;align-items:center;gap:7px}.icon-btn{height:42px;width:42px;border-radius:13px;border:1px solid transparent;background:transparent;display:grid;place-items:center;position:relative}.icon-btn:hover,.icon-btn[aria-expanded="true"]{background:var(--wash);border-color:var(--line)}.icon-btn .icon{width:21px;height:21px}.notif-dot{position:absolute;width:7px;height:7px;right:9px;top:8px;background:#d8a62e;border:2px solid #fff;border-radius:50%}.search-results{position:absolute;top:54px;left:0;right:0;background:white;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:8px;z-index:40;display:none;max-height:55vh;overflow:auto}.search-results.open{display:block}.search-result{width:100%;display:flex;align-items:center;gap:11px;text-align:left;border:0;background:white;padding:11px;border-radius:11px}.search-result:hover{background:var(--wash)}.result-icon{height:36px;width:36px;border-radius:10px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center}.search-result strong{display:block;font-size:13px}.search-result small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.search-empty{padding:15px;color:var(--muted);font-size:13px}.popup{position:absolute;z-index:45;right:clamp(10px,3vw,32px);top:72px;width:min(310px,calc(100vw - 24px));border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 18px 45px rgba(14,29,36,.13);padding:9px;display:none}.popup.open{display:block;animation:popIn .16s ease-out}.popup-title{font-size:12px;font-weight:750;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding:10px 12px 6px}.popup-item{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border:0;background:#fff;border-radius:11px;text-align:left;font-size:14px}.popup-item:hover{background:var(--wash)}.popup-item .icon{color:var(--muted);width:19px;height:19px}.popup-item .trail{margin-left:auto;color:var(--muted);font-size:12px}.popup-divider{height:1px;background:var(--line);margin:6px 5px}.page{padding:28px clamp(14px,3vw,34px) 110px;max-width:1340px;margin:auto}.page-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.page-title{font-size:clamp(23px,3vw,31px);letter-spacing:-.045em;line-height:1.13;margin:0;font-weight:760}.head-actions{display:flex;gap:8px;align-items:center}.subtle-button,.primary-button,.filter-button{min-height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:650;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}.subtle-button:hover,.filter-button:hover{background:var(--wash)}.primary-button{border-color:var(--teal);background:var(--teal);color:#fff}.primary-button:hover{background:var(--teal-deep)}.section{margin-top:27px}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.section-heading h2{font-size:18px;letter-spacing:-.025em;margin:0;font-weight:760}.link-button{border:0;background:transparent;color:var(--teal);font-weight:700;font-size:13px;padding:8px 0}.category-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}.category-card{min-height:135px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:17px 15px;text-align:left;transition:transform .18s,border-color .18s,box-shadow .18s;position:relative;overflow:hidden}.category-card:hover{transform:translateY(-3px);border-color:#b8dedc;box-shadow:var(--shadow)}.category-card:after{content:"";position:absolute;width:70px;height:70px;border-radius:50%;background:var(--orb,var(--teal-soft));right:-27px;bottom:-28px;opacity:.75}.category-icon{height:43px;width:43px;border-radius:13px;background:var(--tone,var(--teal-soft));color:var(--color,var(--teal));display:grid;place-items:center;margin-bottom:13px;position:relative;z-index:1}.category-icon .icon{width:23px;height:23px}.category-card strong{display:block;font-size:14px;line-height:1.25;position:relative;z-index:1}.category-card .count{display:block;color:var(--muted);font-size:11px;margin-top:5px;position:relative;z-index:1}.quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.quick-card{border:1px solid var(--line);border-radius:15px;background:var(--wash);padding:15px;display:flex;align-items:center;gap:11px;text-align:left;min-width:0;transition:background .16s,border .16s}.quick-card:hover{background:white;border-color:#b8dedc}.quick-icon{height:40px;width:40px;flex:none;border-radius:12px;background:white;border:1px solid var(--line);display:grid;place-items:center;color:var(--teal)}.quick-card strong{font-size:13px;display:block}.quick-card small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.resources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.resource-card{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#fff;transition:transform .18s,border-color .18s,box-shadow .18s}.resource-card:hover{transform:translateY(-2px);border-color:#cddcdd;box-shadow:var(--shadow)}.resource-art{height:112px;padding:16px;display:flex;align-items:flex-end;justify-content:space-between;background:var(--art,#eff7f6);position:relative;overflow:hidden}.resource-art:before,.resource-art:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(8,126,131,.13)}.resource-art:before{width:125px;height:125px;right:-27px;top:-55px}.resource-art:after{width:75px;height:75px;right:15px;top:-28px}.resource-art .art-icon{position:relative;z-index:1;width:47px;height:47px;border-radius:14px;background:rgba(255,255,255,.8);display:grid;place-items:center;color:var(--art-ink,#087e83)}.resource-art .art-icon .icon{width:27px;height:27px}.resource-format{position:relative;z-index:1;background:rgba(255,255,255,.83);border:1px solid rgba(255,255,255,.85);padding:5px 8px;border-radius:8px;font-size:10px;font-weight:750;color:#52616c}.resource-body{padding:14px}.resource-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}.pill{font-size:10px;border-radius:7px;padding:4px 7px;background:#f1f4f6;color:#56646e;font-weight:700}.pill.free{background:#eaf7ef;color:#277446}.pill.premium{background:var(--gold-soft);color:#8a6416}.resource-body h3{font-size:14px;line-height:1.34;margin:0 0 12px;min-height:38px;letter-spacing:-.015em}.resource-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}.resource-foot .subtle-button{min-height:34px;padding:0 10px;font-size:12px}.save-button{height:34px;width:36px;border:1px solid var(--line);border-radius:10px;background:white;display:grid;place-items:center;color:var(--muted)}.save-button.saved{color:var(--teal);background:var(--teal-soft);border-color:#b5dfdc}.library-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.filter-button.active{background:var(--teal-soft);border-color:#a6d7d5;color:var(--teal-deep)}.catalog-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.result-count{font-size:12px;color:var(--muted)}.empty-state{padding:45px 18px;border:1px dashed #cdd8dc;border-radius:18px;text-align:center;color:var(--muted);grid-column:1/-1}.empty-state .icon{margin:0 auto 10px;width:30px;height:30px;color:var(--teal)}.empty-state strong{display:block;color:var(--ink);margin-bottom:5px}.page-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.feature-card{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff;min-height:172px;display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden}.feature-card:hover{border-color:#b8dedc;box-shadow:var(--shadow)}.feature-card .feature-icon{height:44px;width:44px;border-radius:13px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;margin-bottom:16px}.feature-card h3{font-size:15px;margin:0 0 13px}.feature-card .subtle-button{margin-top:auto}.feature-top{display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px}.feature-top .pill{margin-bottom:12px}.bottom-nav{position:fixed;z-index:25;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:7px 10px calc(7px + var(--safe-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));max-width:1440px;margin:auto}.nav-item{border:0;background:transparent;border-radius:13px;min-height:56px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;color:#78848c;font-size:10px;font-weight:650;letter-spacing:.005em}.nav-item .icon{width:21px;height:21px}.nav-item.active{color:var(--teal-deep);background:var(--teal-soft)}.nav-item.active .icon{stroke-width:2.2}.modal-backdrop{position:fixed;z-index:70;inset:0;background:rgba(16,29,35,.37);display:none;align-items:flex-end;justify-content:center;padding:16px}.modal-backdrop.open{display:flex}.modal{width:min(540px,100%);max-height:min(82vh,760px);overflow:auto;background:#fff;border-radius:24px;padding:22px;box-shadow:0 25px 80px rgba(13,30,38,.25);animation:slideUp .18s ease-out}.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}.modal-header h2{font-size:21px;letter-spacing:-.03em;margin:0}.modal-close{height:36px;width:36px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:11px;background:white}.modal-body{color:#43515b;font-size:14px}.modal-body p{margin:0 0 13px}.modal-body .primary-button{margin-top:7px}.quiz-question{font-size:16px;color:var(--ink);font-weight:750;margin:12px 0}.quiz-option{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;margin:8px 0;cursor:pointer}.quiz-option:has(input:checked){border-color:#65b8b8;background:var(--teal-soft)}.quiz-option input{accent-color:var(--teal)}.quiz-progress{height:5px;background:#eef2f3;border-radius:10px;overflow:hidden;margin:14px 0}.quiz-progress span{display:block;height:100%;background:var(--teal);width:0;transition:width .2s}.toast{position:fixed;z-index:90;bottom:calc(82px + var(--safe-bottom));left:50%;transform:translate(-50%,12px);background:#17212b;color:white;padding:12px 16px;border-radius:13px;box-shadow:var(--shadow);font-size:13px;max-width:calc(100vw - 30px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}.fade-in{animation:fadeIn .32s ease-out both}.micro-animation{animation:float 4.5s ease-in-out infinite}.site-footer{border-top:1px solid var(--line);margin-top:34px;padding:18px 0 0;color:#7a8790;font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.site-footer a{color:var(--teal);font-weight:650}@keyframes popIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}@keyframes slideUp{from{opacity:.5;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}@media(min-width:900px){.page{padding-top:34px}.bottom-nav{position:static;border-top:0;border-bottom:1px solid var(--line);padding:0 24px 14px;display:flex;gap:8px;background:white}.nav-item{min-height:43px;flex-direction:row;padding:0 17px;font-size:13px;gap:9px}.page{padding-bottom:45px}.popup{right:clamp(12px,3vw,32px)}}@media(max-width:850px){.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.resources{grid-template-columns:repeat(2,minmax(0,1fr))}.page-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.topbar{padding:8px 10px}.topbar-inner{gap:7px}.brand{width:45px;height:45px;border-radius:11px}.search-box{height:41px;padding:0 9px;gap:6px;border-radius:12px}.search-box input{font-size:12px}.search-box .icon{width:18px;height:18px}.top-actions{gap:1px}.icon-btn{width:32px;height:36px;border-radius:10px}.icon-btn .icon{width:19px;height:19px}.notif-dot{right:4px;top:5px}.popup{top:61px;right:8px}.page{padding:22px 13px calc(92px + var(--safe-bottom))}.page-head{margin-bottom:17px}.page-title{font-size:24px}.section{margin-top:24px}.section-heading h2{font-size:16px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category-card{min-height:121px;padding:14px}.category-icon{height:39px;width:39px;margin-bottom:10px}.category-card strong{font-size:13px}.resources{gap:10px}.resource-art{height:88px;padding:11px}.resource-art .art-icon{width:38px;height:38px}.resource-art .art-icon .icon{width:23px;height:23px}.resource-body{padding:11px}.resource-body h3{font-size:12px;min-height:47px}.resource-foot .subtle-button{padding:0 8px;font-size:11px}.save-button{width:32px}.quick-grid{gap:9px}.quick-card{padding:11px;gap:8px}.quick-icon{width:35px;height:35px}.quick-card strong{font-size:12px}.quick-card small{font-size:10px}.page-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.feature-card{padding:14px;min-height:155px}.feature-card h3{font-size:13px}.feature-card .subtle-button{font-size:11px;padding:0 10px}.bottom-nav{padding-left:5px;padding-right:5px}.nav-item{font-size:9px;min-height:53px}.nav-item .icon{width:20px;height:20px}.modal-backdrop{padding:0;align-items:flex-end}.modal{border-radius:23px 23px 0 0;padding:21px 17px calc(19px + var(--safe-bottom));max-height:88vh}.site-footer{font-size:10px}}@media(max-width:350px){.brand{width:40px;height:40px}.topbar-inner{gap:5px}.icon-btn{width:29px}.search-box input::placeholder{font-size:10px}.resource-art .resource-format{font-size:9px}.nav-item{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
-  <div class="topbar">Your next chapter starts here · Free learning resources for curious minds</div>
-
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#home" aria-label="Tloribless home">
-        <div class="logo">T</div>
-        <div>
-          <div class="brand-name">Tloribless</div>
-          <div class="tagline">Built for Your Next Move.</div>
-        </div>
-      </a>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="#categories">Explore</a>
-        <a href="#resources">Study Resources</a>
-        <a href="#books">Books</a>
-        <a href="#skills">Skills</a>
-        <a href="#dashboard">My Learning</a>
-      </nav>
-
-      <div class="nav-actions">
-        <button class="icon-btn" id="notificationBtn" aria-label="Notifications">♧</button>
-        <button class="icon-btn" id="profileBtn" aria-label="Profile menu">◉</button>
-        <a href="#resources" class="btn">Explore</a>
-        <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
-      </div>
-      <div id="profileMenu">
-        <button data-message="Student profile and secure sign-in will be added in a future update.">👤 Student Profile</button>
-        <button data-message="Saved resources will work when accounts are connected.">♡ Saved Resources</button>
-        <button data-message="Account settings will be available after secure sign-in is built.">⚙ Settings</button>
-      </div>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M4 5.5V22M8 7h8M8 11h8"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 9h18"/></symbol>
+<symbol id="i-quiz" viewBox="0 0 24 24"><path d="M9 3h6M9 3a2 2 0 0 0 0 4h6a2 2 0 0 0 0-4M6 5H4v16h16V5h-2"/><path d="m8 14 2.5 2.5L16 11"/></symbol>
+<symbol id="i-exam" viewBox="0 0 24 24"><path d="M7 3h10l3 3v15H4V3zM14 3v4h6"/><path d="M8 12h8M8 16h8M8 8h2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 4.3 4.3"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+<symbol id="i-graduation" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5zM6 11v5c3.5 3 8.5 3 12 0v-5M22 9v7"/></symbol>
+<symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></symbol>
+<symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8.5 15.5A7 7 0 1 1 15.5 15.5C14.4 16.3 14 17 14 18h-4c0-1-.4-1.7-1.5-2.5z"/></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17l-6-4-6 4z"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-calculator" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8v4H8zM8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 6-7"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h6M9 17h6"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="m4 20 4-.8L20 7a2.1 2.1 0 0 0-3-3L5 16zM14.5 5.5l4 4"/></symbol>
+<symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5a4 4 0 0 0-7-2 4 4 0 0 0-1 7 4 4 0 0 0 1 7 4 4 0 0 0 7-2zM12 5a4 4 0 0 1 7-2 4 4 0 0 1 1 7 4 4 0 0 1-1 7 4 4 0 0 1-7-2zM12 5v15M5 9h3M16 13h3"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+<symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/></symbol>
+</svg>
+<div class="app-shell">
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#home" aria-label="Tloribless home" title="Tloribless"><img src="tloribless-logo.png" alt="Tloribless logo"></a>
+    <div class="search-wrap">
+      <label class="search-box"><svg class="icon"><use href="#i-search"/></svg><input id="globalSearch" type="search" placeholder="Search notes, subjects, exams…" autocomplete="off" aria-label="Search study resources"><span class="visually-hidden">Search</span></label>
+      <div id="searchResults" class="search-results" role="listbox" aria-label="Search results"></div>
     </div>
-  </header>
-
-  <main>
-    <div class="wrap">
-      <section class="hero" id="home">
-        <div class="hero-grid">
-          <div>
-            <div class="eyebrow">Learn · Practice · Grow</div>
-            <h1>Your goals.<br>Your pace.<br><span class="gradient-text">Your next move.</span></h1>
-            <p class="hero-copy">
-              One place for study notes, important questions, exam practice,
-              inspiring books and practical skills. Learn in Hindi or English
-              and keep moving towards the future you want.
-            </p>
-            <div class="hero-buttons">
-              <a href="#categories" class="btn">Explore Resources →</a>
-              <a href="#skills" class="btn btn-secondary">Discover Skills</a>
-            </div>
-            <p class="hero-note">For school students, college learners, exam aspirants and lifelong learners.</p>
-            <div class="stats">
-              <div class="stat"><strong>Free + Paid</strong><span>Learning options</span></div>
-              <div class="stat"><strong>Hindi + English</strong><span>Language choices</span></div>
-              <div class="stat"><strong>All Learners</strong><span>One learning hub</span></div>
-            </div>
-          </div>
-          <div class="hero-art" aria-label="Books and learning illustration">
-            <div class="orbit"><div class="book-emoji">📚</div></div>
-            <div class="float-card float-one">✦ Keep learning<strong>One step at a time</strong></div>
-            <div class="float-card float-two">🎯 Your next move<strong>Starts with practice</strong></div>
-            <div class="float-card float-three">✎ Notes · Books · Skills</div>
-          </div>
-        </div>
-      </section>
-
-      <section id="search">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Find what you need</div>
-            <h2>Search your learning library</h2>
-            <p class="section-desc">Search the sample resources by topic, subject or exam.</p>
-          </div>
-        </div>
-        <div class="search-panel">
-          <input id="searchInput" type="search" placeholder="Try Maths, NCERT, business, coding..." aria-label="Search resources">
-          <button class="btn btn-cyan" id="searchBtn">Search</button>
-        </div>
-        <div class="chips" id="filterChips">
-          <button class="chip active" data-filter="All">All</button>
-          <button class="chip" data-filter="School Study">School Study</button>
-          <button class="chip" data-filter="Competitive Exams">Competitive Exams</button>
-          <button class="chip" data-filter="College">College</button>
-          <button class="chip" data-filter="Digital Skills">Digital Skills</button>
-          <button class="chip" data-filter="Books Beyond Academics">Books Beyond Academics</button>
-          <button class="chip" data-filter="Free">Free</button>
-        </div>
-      </section>
-
-      <section id="categories">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Explore your path</div>
-            <h2>Learning, organised for you</h2>
-            <p class="section-desc">Choose a category to explore relevant sample resources.</p>
-          </div>
-        </div>
-        <div class="category-grid">
-          <button class="category" data-category="School Study">
-            <div class="category-icon">🎓</div><strong>School Study</strong><span>Classes 1–12 · Boards · Subjects</span>
-          </button>
-          <button class="category" data-category="College">
-            <div class="category-icon">🏛️</div><strong>College & University</strong><span>Courses · Semesters · Notes</span>
-          </button>
-          <button class="category" data-category="Competitive Exams">
-            <div class="category-icon">🏆</div><strong>Competitive Exams</strong><span>JEE · NEET · SSC · UPSC</span>
-          </button>
-          <button class="category" data-category="School Study">
-            <div class="category-icon">📝</div><strong>Question Papers</strong><span>Practice · Revision · Mock papers</span>
-          </button>
-          <button class="category" data-category="Books Beyond Academics">
-            <div class="category-icon">📖</div><strong>Books Beyond Academics</strong><span>Money · Habits · Business · Stories</span>
-          </button>
-          <button class="category" data-category="Digital Skills">
-            <div class="category-icon">💻</div><strong>Digital Skills</strong><span>Coding · AI · Design · Computer</span>
-          </button>
-          <button class="category" data-category="Digital Skills">
-            <div class="category-icon">🧠</div><strong>Tests & Practice</strong><span>Quizzes · Practice · Self-check</span>
-          </button>
-          <button class="category" data-category="Digital Skills">
-            <div class="category-icon">🚀</div><strong>Career & Business</strong><span>Communication · Careers · Ideas</span>
-          </button>
-        </div>
-      </section>
-
-      <section id="resources">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Start learning today</div>
-            <h2>Featured resources</h2>
-            <p class="section-desc">These are demo listings. Real files and paid products are not connected yet.</p>
-          </div>
-          <button class="btn btn-secondary" id="clearFilters">Reset filters</button>
-        </div>
-
-        <div class="resource-grid" id="resourceGrid">
-          <article class="resource" data-category="School Study" data-free="true" data-search="class 10 maths formulas school notes mathematics">
-            <div class="resource-cover"><span class="pill">FREE DEMO</span>📐</div>
-            <div class="resource-body">
-              <div class="resource-type">School Study · Maths</div>
-              <h3>Class 10 Maths — Formula Revision</h3>
-              <p>A quick-revision resource concept for key formulas and last-minute practice.</p>
-              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="This is a sample listing. The real revision PDF will be added after the resource system is built.">View resource</button></div>
-            </div>
-          </article>
-
-          <article class="resource" data-category="Competitive Exams" data-free="true" data-search="competitive exam general knowledge practice questions quiz">
-            <div class="resource-cover"><span class="pill">FREE DEMO</span>🎯</div>
-            <div class="resource-body">
-              <div class="resource-type">Competitive Exams</div>
-              <h3>General Knowledge — Practice Set</h3>
-              <p>A sample practice-set listing for revision and self-assessment.</p>
-              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="Practice questions and scoring will be connected in a later version.">Start practice</button></div>
-            </div>
-          </article>
-
-          <article class="resource" data-category="College" data-free="true" data-search="college economics notes study semester">
-            <div class="resource-cover"><span class="pill">FREE DEMO</span>📊</div>
-            <div class="resource-body">
-              <div class="resource-type">College · Economics</div>
-              <h3>Economics — Study Notes</h3>
-              <p>A placeholder for clearly organised college notes and topic summaries.</p>
-              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="College notes will be added by subject and semester after the content library is built.">View notes</button></div>
-            </div>
-          </article>
-
-          <article class="resource" data-category="Digital Skills" data-free="true" data-search="coding html css web development digital skills">
-            <div class="resource-cover"><span class="pill">FREE DEMO</span>💻</div>
-            <div class="resource-body">
-              <div class="resource-type">Digital Skills</div>
-              <h3>Web Development — First Steps</h3>
-              <p>Explore the basics of HTML, CSS and how websites are structured.</p>
-              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="A complete web development learning path will be added in a future update.">Explore skill</button></div>
-            </div>
-          </article>
-
-          <article class="resource" data-category="Books Beyond Academics" data-free="false" data-search="rich dad poor dad money financial literacy business book">
-            <div class="resource-cover"><span class="pill paid">BOOK INFO</span>💰</div>
-            <div class="resource-body">
-              <div class="resource-type">Books Beyond Academics</div>
-              <h3>Rich Dad Poor Dad — Reading Guide</h3>
-              <p>Plan for original notes about financial literacy and lessons from the book.</p>
-              <div class="resource-foot"><span class="price">Authorised book link</span><button class="btn" data-message="This is only a concept listing. No copyrighted book PDF is provided. An authorised book link can be added after verification.">Book details</button></div>
-            </div>
-          </article>
-
-          <article class="resource" data-category="Digital Skills" data-free="false" data-search="business communication career freelancing skills">
-            <div class="resource-cover"><span class="pill paid">PREVIEW</span>🚀</div>
-            <div class="resource-body">
-              <div class="resource-type">Career & Business</div>
-              <h3>Communication & Career Skills</h3>
-              <p>A planned learning module for confidence, communication and work skills.</p>
-              <div class="resource-foot"><span class="price">Coming soon</span><button class="btn" data-message="This course is not for sale yet. Course content and secure payments have not been implemented.">Course preview</button></div>
-            </div>
-          </article>
-        </div>
-        <div class="empty-state" id="emptyState">No matching demo resources. Try a different search or reset filters.</div>
-      </section>
-
-      <section id="books">
-        <div class="book-feature">
-          <div class="book-stack">📚</div>
-          <div>
-            <div class="eyebrow">Beyond the classroom</div>
-            <h2>Books Beyond Academics</h2>
-            <p>Build knowledge beyond exams with reading guides, original notes and key ideas from books on money, habits, business and personal growth.</p>
-            <ul class="feature-list">
-              <li>Self-help, habits and productivity</li>
-              <li>Money management and financial literacy</li>
-              <li>Business, biographies, novels and inspiring stories</li>
-              <li>Hindi and English reading resources</li>
-            </ul>
-            <a class="btn" href="#resources" id="bookExplore">Explore book resources →</a>
-            <p class="fine-print">Copyrighted books will only be offered through authorised sources unless distribution permission is available.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="skills">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Skills for tomorrow</div>
-            <h2>Learn beyond your syllabus</h2>
-            <p class="section-desc">A planned space for practical skills and career exploration.</p>
-          </div>
-        </div>
-        <div class="category-grid">
-          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">🤖</div><strong>AI & Technology</strong><span>AI literacy and digital tools</span></a>
-          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">⌨️</div><strong>Coding & Websites</strong><span>Programming fundamentals</span></a>
-          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">🎨</div><strong>Design & Editing</strong><span>Visual creativity and media</span></a>
-          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">💼</div><strong>Business & Careers</strong><span>Communication and work skills</span></a>
-        </div>
-      </section>
-
-      <section id="dashboard">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Your learning space</div>
-            <h2>My learning dashboard</h2>
-            <p class="section-desc">A visual preview of the future student dashboard. Your personal progress is not saved yet.</p>
-          </div>
-        </div>
-        <div class="progress-grid">
-          <div class="progress-card"><span>Learning goal</span><strong>Stay consistent</strong><span>Build your daily study routine</span><div class="progress-track"><div style="width:68%"></div></div></div>
-          <div class="progress-card"><span>Saved resources</span><strong>Coming soon</strong><span>Keep useful resources together</span><div class="progress-track"><div style="width:35%"></div></div></div>
-          <div class="progress-card"><span>Practice & quizzes</span><strong>Coming soon</strong><span>Track practice and improvement</span><div class="progress-track"><div style="width:20%"></div></div></div>
-        </div>
-      </section>
-
-      <section id="get-started">
-        <div class="cta">
-          <div class="eyebrow">Built for your next move</div>
-          <h2>Your learning journey starts with one step.</h2>
-          <p>Explore the sample categories today. More resources and learning tools will be added as the platform develops.</p>
-          <a href="#categories" class="btn btn-cyan">Start exploring →</a>
-        </div>
-      </section>
+    <div class="top-actions">
+      <button class="icon-btn" id="notificationBtn" aria-label="Notifications" aria-expanded="false" title="Notifications"><svg class="icon"><use href="#i-bell"/></svg><span class="notif-dot" aria-hidden="true"></span></button>
+      <button class="icon-btn" id="profileBtn" aria-label="Profile" aria-expanded="false" title="Profile"><svg class="icon"><use href="#i-user"/></svg></button>
+      <button class="icon-btn" id="menuBtn" aria-label="More options" aria-expanded="false" title="More options"><svg class="icon"><use href="#i-more"/></svg></button>
     </div>
-  </main>
+  </div>
+</header>
+<div id="notificationPopup" class="popup" role="dialog" aria-label="Notifications"><div class="popup-title">Notifications</div><button class="popup-item" data-action="notifications"><svg class="icon"><use href="#i-check"/></svg><span>You're all caught up</span></button><div class="popup-divider"></div><button class="popup-item" data-action="settings"><svg class="icon"><use href="#i-lock"/></svg><span>Notification settings</span><span class="trail">›</span></button></div>
+<div id="profilePopup" class="popup" role="dialog" aria-label="Profile options"><div class="popup-title">Your space</div><button class="popup-item" data-section="saved"><svg class="icon"><use href="#i-bookmark"/></svg><span>Saved items</span></button><button class="popup-item" data-action="account"><svg class="icon"><use href="#i-user"/></svg><span>Account & sign in</span><span class="trail">›</span></button><button class="popup-item" data-action="language"><svg class="icon"><use href="#i-globe"/></svg><span>Language</span><span id="languageTrail" class="trail">English / हिन्दी</span></button><button class="popup-item" data-action="settings"><svg class="icon"><use href="#i-lock"/></svg><span>Study preferences</span><span class="trail">›</span></button></div>
+<div id="menuPopup" class="popup" role="menu" aria-label="Main menu"><div class="popup-title">Navigate</div><button class="popup-item" data-section="home"><svg class="icon"><use href="#i-home"/></svg>Home</button><button class="popup-item" data-section="library"><svg class="icon"><use href="#i-book"/></svg>Library</button><button class="popup-item" data-section="projects"><svg class="icon"><use href="#i-folder"/></svg>Projects</button><button class="popup-item" data-section="quiz"><svg class="icon"><use href="#i-quiz"/></svg>Quiz</button><button class="popup-item" data-section="mock"><svg class="icon"><use href="#i-exam"/></svg>Mock Exam</button><div class="popup-divider"></div><button class="popup-item" data-section="saved"><svg class="icon"><use href="#i-bookmark"/></svg>Saved items</button><button class="popup-item" data-action="planner"><svg class="icon"><use href="#i-clock"/></svg>Study planner</button><button class="popup-item" data-action="progress"><svg class="icon"><use href="#i-chart"/></svg>Progress</button><button class="popup-item" data-action="settings"><svg class="icon"><use href="#i-lock"/></svg>Settings & privacy</button></div>
+<nav class="bottom-nav" aria-label="Primary navigation">
+<button class="nav-item active" data-section="home" aria-current="page"><svg class="icon"><use href="#i-home"/></svg><span>Home</span></button>
+<button class="nav-item" data-section="library"><svg class="icon"><use href="#i-book"/></svg><span>Library</span></button>
+<button class="nav-item" data-section="projects"><svg class="icon"><use href="#i-folder"/></svg><span>Projects</span></button>
+<button class="nav-item" data-section="quiz"><svg class="icon"><use href="#i-quiz"/></svg><span>Quiz</span></button>
+<button class="nav-item" data-section="mock"><svg class="icon"><use href="#i-exam"/></svg><span>Mock Exam</span></button>
+</nav>
+<main id="main" class="page" tabindex="-1"></main>
+<div class="site-footer"><span>© <span id="year"></span> Tloribless</span><span><a href="#" data-action="privacy">Privacy</a> · <a href="#" data-action="terms">Terms</a> · <a href="#" data-action="about">About</a></span></div>
+</div>
+<div id="modalBackdrop" class="modal-backdrop" role="presentation"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-header"><h2 id="modalTitle">Details</h2><button class="modal-close" id="modalClose" aria-label="Close dialog"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="modalBody" class="modal-body"></div></section></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{'use strict';
+const $=(s,root=document)=>root.querySelector(s), $$=(s,root=document)=>Array.from(root.querySelectorAll(s));
+const icon=(name,size=22)=>`<svg class="icon" style="width:${size}px;height:${size}px" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const resources=[
+{id:'r1',title:'Class 10 Maths Formula Sheet',category:'school',subject:'Mathematics',type:'Free',format:'PDF',icon:'calculator',art:'#eef7f3',ink:'#27745a',level:'Class 10',language:'English'},
+{id:'r2',title:'Class 12 Economics — Important Questions',category:'school',subject:'Economics',type:'Premium',format:'NOTES',icon:'chart',art:'#fff6e6',ink:'#a46b0d',level:'Class 12',language:'Hindi + English'},
+{id:'r3',title:'NCERT Science Revision Notes',category:'school',subject:'Science',type:'Free',format:'PDF',icon:'atom',art:'#eef5ff',ink:'#2e69a2',level:'Class 9–10',language:'Hindi + English'},
+{id:'r4',title:'College Semester Study Notes',category:'college',subject:'Semester notes',type:'Free',format:'NOTES',icon:'graduation',art:'#f1edff',ink:'#6b58a8',level:'College',language:'English'},
+{id:'r5',title:'CUET General Test Practice',category:'competitive',subject:'CUET',type:'Premium',format:'PRACTICE',icon:'exam',art:'#fff0f0',ink:'#b34d57',level:'Entrance exam',language:'Hindi + English'},
+{id:'r6',title:'Competitive Exam Current Affairs',category:'competitive',subject:'Current affairs',type:'Free',format:'NOTES',icon:'globe',art:'#eaf8fb',ink:'#227b8d',level:'Competitive exams',language:'Hindi'},
+{id:'r7',title:'English Grammar Quick Revision',category:'skills',subject:'English',type:'Free',format:'GUIDE',icon:'book-open',art:'#fff4e8',ink:'#a76324',level:'All levels',language:'English'},
+{id:'r8',title:'Coding Basics — Starter Guide',category:'skills',subject:'Coding',type:'Premium',format:'GUIDE',icon:'code',art:'#ebf7f7',ink:'#087e83',level:'Beginner',language:'English'},
+{id:'r9',title:'Business & Money Reading Notes',category:'books',subject:'Business',type:'Free',format:'READING',icon:'briefcase',art:'#f4f1e9',ink:'#80612b',level:'Beyond academics',language:'English'},
+{id:'r10',title:'Study Skills & Time Planning',category:'skills',subject:'Study skills',type:'Free',format:'GUIDE',icon:'clock',art:'#eef5ff',ink:'#486d9d',level:'All levels',language:'Hindi + English'},
+{id:'r11',title:'JEE Physics Formula Revision',category:'competitive',subject:'Physics',type:'Premium',format:'PDF',icon:'atom',art:'#eef7f3',ink:'#27745a',level:'JEE',language:'Hindi + English'},
+{id:'r12',title:'Project Report Format',category:'college',subject:'Projects',type:'Free',format:'TEMPLATE',icon:'file',art:'#f1edff',ink:'#6b58a8',level:'School & college',language:'English'},
+{id:'r13',title:'Class 11 Accountancy Basics',category:'school',subject:'Accountancy',type:'Free',format:'NOTES',icon:'calculator',art:'#eaf8fb',ink:'#227b8d',level:'Class 11',language:'Hindi + English'},
+{id:'r14',title:'NEET Biology Chapter Practice',category:'competitive',subject:'Biology',type:'Premium',format:'PRACTICE',icon:'atom',art:'#eaf7ec',ink:'#318047',level:'NEET',language:'Hindi + English'},
+{id:'r15',title:'Habits, Mindset & Personal Finance',category:'books',subject:'Personal growth',type:'Premium',format:'READING',icon:'brain',art:'#fff6e6',ink:'#a46b0d',level:'Beyond academics',language:'English'}
+];
+const categories=[
+{id:'school',name:'School',icon:'graduation',tone:'#e9f6f0',color:'#287859',count:'Classes 1–12 · CBSE · State'},
+{id:'college',name:'College',icon:'book-open',tone:'#f0edff',color:'#6d5ab0',count:'Courses · Semester · Projects'},
+{id:'competitive',name:'Competitive Exams',icon:'atom',tone:'#fff0ee',color:'#b44f50',count:'JEE · NEET · CUET · SSC'},
+{id:'skills',name:'Skills',icon:'lightbulb',tone:'#eaf7fb',color:'#167d8b',count:'Coding · English · Business'},
+{id:'books',name:'Books & Reading',icon:'book',tone:'#fff6e6',color:'#a46b0d',count:'Business · Money · Biographies'}
+];
+const quick=[{id:'quiz',name:'Quick Quiz',icon:'quiz'},{id:'mock',name:'Mock Exam',icon:'exam'},{id:'projects',name:'Projects',icon:'folder'},{id:'saved',name:'Saved Items',icon:'bookmark'}];
+const quizSets={
+'Basics':[{q:'Which part of a book usually lists its chapters?',opts:['Index','Table of contents','Glossary','Appendix'],a:1},{q:'What does a percentage represent?',opts:['A ratio out of 100','A distance','A temperature','A date'],a:0},{q:'Which is a useful study habit?',opts:['Skip revision','Study without breaks','Review notes regularly','Keep every task for the last day'],a:2}],
+'Maths':[{q:'What is 15% of 200?',opts:['15','20','30','45'],a:2},{q:'What is the square of 12?',opts:['124','144','122','132'],a:1},{q:'If x + 7 = 15, what is x?',opts:['6','7','8','9'],a:2}],
+'Science':[{q:'Which gas do plants absorb during photosynthesis?',opts:['Oxygen','Carbon dioxide','Nitrogen','Hydrogen'],a:1},{q:'What is the SI unit of force?',opts:['Joule','Watt','Newton','Pascal'],a:2},{q:'Which planet is known as the Red Planet?',opts:['Venus','Mars','Jupiter','Mercury'],a:1}],
+'English':[{q:'Choose the correct spelling.',opts:['Enviroment','Environment','Envirnoment','Environmant'],a:1},{q:'Which word is a verb?',opts:['Quickly','Bright','Write','Blue'],a:2},{q:'Choose the plural of “child”.',opts:['Childs','Childes','Children','Childrens'],a:2}]
+};
+let state={section:'home',query:'',category:'all',type:'all',saved:loadSaved(),lang:localStorage.getItem('tloribless-lang')||'en',quiz:null,quizIndex:0,quizAnswers:[],quizScore:0};
+const hiText={"Notifications":"सूचनाएँ","You're all caught up":"कोई नई सूचना नहीं","Notification settings":"सूचना सेटिंग","Your space":"आपकी जगह","Saved items":"सेव की गई सामग्री","Saved Items":"सेव की गई सामग्री","Account & sign in":"खाता और साइन इन","Language":"भाषा","Study preferences":"अध्ययन सेटिंग","Navigate":"नेविगेशन","Home":"होम","Library":"लाइब्रेरी","Projects":"प्रोजेक्ट्स","Quiz":"क्विज़","Mock Exam":"मॉक एग्ज़ाम","Study planner":"स्टडी प्लानर","Progress":"प्रगति","Settings & privacy":"सेटिंग्स और प्राइवेसी","Study Material":"स्टडी मटेरियल","View library":"लाइब्रेरी देखें","Browse categories":"कैटेगरी चुनें","Quick access":"क्विक एक्सेस","Popular resources":"लोकप्रिय सामग्री","See all":"सभी देखें","Study tools":"स्टडी टूल्स","School":"स्कूल","College":"कॉलेज","Competitive Exams":"प्रतियोगी परीक्षाएँ","Skills":"स्किल्स","Books & Reading":"किताबें और रीडिंग","Quick Quiz":"क्विक क्विज़","Reset filters":"फ़िल्टर रीसेट करें","All":"सभी","Free":"फ्री","Premium":"प्रीमियम","All categories":"सभी कैटेगरी","Your results":"आपके नतीजे","Practice history":"अभ्यास का रिकॉर्ड","3 questions":"3 प्रश्न","Start quiz":"क्विज़ शुरू करें","Start exam":"एग्ज़ाम शुरू करें","Practice complete":"अभ्यास पूरा हुआ","Perfect score.":"पूरे अंक!","Practice makes progress.":"अभ्यास से सुधार होता है।","Keep practising and try again.":"अभ्यास जारी रखें और फिर कोशिश करें।","This device":"यह डिवाइस","Study target saved on this device":"स्टडी टारगेट इस डिवाइस पर सेव हुआ","Back to":"वापस जाएँ","View resource":"सामग्री देखें","Remove from saved":"सेव सूची से हटाएँ","Save resource":"सामग्री सेव करें","Project guide":"प्रोजेक्ट गाइड","Open template":"टेम्पलेट खोलें","Today's study target":"आज का स्टडी टारगेट","Enter a study target first":"पहले स्टडी टारगेट लिखें","Clear local history":"इस डिवाइस का रिकॉर्ड हटाएँ","No saved items yet":"अभी कोई सामग्री सेव नहीं है","No resources found":"कोई सामग्री नहीं मिली","Try a shorter search or reset the filters.":"दूसरा शब्द लिखें या फ़िल्टर रीसेट करें।","Try a different search or category.":"दूसरी खोज या कैटेगरी चुनें।","Search":"खोजें","Privacy":"प्राइवेसी","Terms":"नियम","About":"परिचय","This is a sample catalog card.":"यह कैटलॉग का नमूना कार्ड है।"};
+function applyLanguage(root=document){const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(n=>{if(n._en===undefined)n._en=n.nodeValue;const original=n._en;const trim=original.trim();if(!trim)return;const translated=state.lang==='hi'?(hiText[trim]||trim):trim;const lead=original.match(/^\s*/)?.[0]||'',trail=original.match(/\s*$/)?.[0]||'';n.nodeValue=lead+translated+trail});if(root===document||root===document.body){const search=$('#globalSearch');if(search)search.placeholder=state.lang==='hi'?'नोट्स, विषय या परीक्षा खोजें…':'Search notes, subjects, exams…';$('#languageTrail').textContent=state.lang==='hi'?'हिन्दी':'English / हिन्दी';}}
 
-  <footer>
-    <div class="wrap">
-      <div class="footer-row">
-        <a class="brand" href="#home">
-          <div class="logo">T</div>
-          <div><div class="brand-name">Tloribless</div><div class="tagline">Built for Your Next Move.</div></div>
-        </a>
-        <div class="footer-links">
-          <a href="#categories">Explore</a>
-          <a href="#books">Books</a>
-          <a href="#skills">Skills</a>
-          <a href="#help" id="helpLink">Help & Support</a>
-          <a href="#privacy" id="privacyLink">Privacy</a>
-        </div>
-      </div>
-      <p class="fine-print">© <span id="year"></span> Tloribless. Educational resources and original learning notes.</p>
-      <p class="fine-print">Demo website: accounts, payments, private downloads, saved progress and support systems are not connected yet.</p>
-    </div>
-  </footer>
-
-  <div class="notice" id="notice" role="status" aria-live="polite"></div>
-
-  <script>
-    const searchInput = document.getElementById("searchInput");
-    const resourceCards = [...document.querySelectorAll(".resource")];
-    const filterChips = [...document.querySelectorAll("[data-filter]")];
-    const emptyState = document.getElementById("emptyState");
-    const notice = document.getElementById("notice");
-    let activeFilter = "All";
-    let noticeTimer;
-
-    function showNotice(message) {
-      notice.textContent = message;
-      notice.classList.add("show");
-      clearTimeout(noticeTimer);
-      noticeTimer = setTimeout(() => notice.classList.remove("show"), 3500);
-    }
-
-    function applyFilters() {
-      const query = searchInput.value.trim().toLowerCase();
-      let visible = 0;
-
-      resourceCards.forEach(card => {
-        const category = card.dataset.category;
-        const searchText = (card.dataset.search + " " + card.innerText).toLowerCase();
-        const categoryMatch =
-          activeFilter === "All" ||
-          (activeFilter === "Free" && card.dataset.free === "true") ||
-          category === activeFilter;
-        const searchMatch = !query || searchText.includes(query);
-        const show = categoryMatch && searchMatch;
-        card.style.display = show ? "flex" : "none";
-        if (show) visible++;
-      });
-
-      emptyState.style.display = visible ? "none" : "block";
-    }
-
-    filterChips.forEach(chip => {
-      chip.addEventListener("click", () => {
-        activeFilter = chip.dataset.filter;
-        filterChips.forEach(item => item.classList.toggle("active", item === chip));
-        applyFilters();
-        document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
-      });
-    });
-
-    document.getElementById("searchBtn").addEventListener("click", () => {
-      applyFilters();
-      document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
-    });
-
-    searchInput.addEventListener("input", applyFilters);
-    searchInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        applyFilters();
-        document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
-      }
-    });
-
-    document.querySelectorAll("[data-category]").forEach(button => {
-      button.addEventListener("click", () => {
-        activeFilter = button.dataset.category;
-        filterChips.forEach(chip => chip.classList.toggle("active", chip.dataset.filter === activeFilter));
-        applyFilters();
-        document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
-      });
-    });
-
-    document.querySelectorAll("[data-category-link]").forEach(link => {
-      link.addEventListener("click", () => {
-        activeFilter = link.dataset.categoryLink;
-        filterChips.forEach(chip => chip.classList.toggle("active", chip.dataset.filter === activeFilter));
-        applyFilters();
-      });
-    });
-
-    document.getElementById("clearFilters").addEventListener("click", () => {
-      activeFilter = "All";
-      searchInput.value = "";
-      filterChips.forEach(chip => chip.classList.toggle("active", chip.dataset.filter === "All"));
-      applyFilters();
-    });
-
-    document.querySelectorAll("[data-message]").forEach(button => {
-      button.addEventListener("click", () => showNotice(button.dataset.message));
-    });
-
-    document.getElementById("notificationBtn").addEventListener("click", () => {
-      showNotice("You are all caught up. Real notifications will be added after the account system is built.");
-    });
-
-    const profileMenu = document.getElementById("profileMenu");
-    document.getElementById("profileBtn").addEventListener("click", () => {
-      profileMenu.classList.toggle("show");
-    });
-    profileMenu.querySelectorAll("button").forEach(button => {
-      button.addEventListener("click", () => {
-        profileMenu.classList.remove("show");
-        showNotice(button.dataset.message);
-      });
-    });
-    document.addEventListener("click", event => {
-      if (!profileMenu.contains(event.target) &&
-          event.target.id !== "profileBtn") {
-        profileMenu.classList.remove("show");
-      }
-    });
-
-    document.getElementById("menuBtn").addEventListener("click", () => {
-      document.getElementById("navLinks").classList.toggle("open");
-    });
-    document.querySelectorAll("#navLinks a").forEach(link => {
-      link.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open"));
-    });
-
-    document.getElementById("helpLink").addEventListener("click", event => {
-      event.preventDefault();
-      showNotice("Support contact will be added before the website launches.");
-    });
-    document.getElementById("privacyLink").addEventListener("click", event => {
-      event.preventDefault();
-      showNotice("A proper privacy policy will be published before accounts or personal data are collected.");
-    });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-    applyFilters();
-  </script>
+function loadSaved(){try{return JSON.parse(localStorage.getItem('tloribless-saved')||'[]')}catch(_){return []}}
+function saveSaved(){try{localStorage.setItem('tloribless-saved',JSON.stringify(state.saved))}catch(_){}}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2600)}
+function closePopups(except=''){['notificationPopup','profilePopup','menuPopup'].forEach(id=>{if(id!==except)$('#'+id).classList.remove('open')});['notificationBtn','profileBtn','menuBtn'].forEach(id=>{if((id==='notificationBtn'&&except!=='notificationPopup')||(id==='profileBtn'&&except!=='profilePopup')||(id==='menuBtn'&&except!=='menuPopup'))$('#'+id).setAttribute('aria-expanded','false')})}
+function togglePopup(id,btn){const was=$('#'+id).classList.contains('open');closePopups();if(!was){$('#'+id).classList.add('open');btn.setAttribute('aria-expanded','true')}}
+function setSection(section){state.section=section;closePopups();$('#searchResults').classList.remove('open');if(section!=='library'&&section!=='saved'){state.query='';$('#globalSearch').value=''}render();window.scrollTo({top:0,behavior:'smooth'})}
+function resourceCard(r){const saved=state.saved.includes(r.id);return `<article class="resource-card"><div class="resource-art" style="--art:${r.art};--art-ink:${r.ink}"><span class="art-icon">${icon(r.icon,26)}</span><span class="resource-format">${esc(r.format)}</span></div><div class="resource-body"><div class="resource-meta"><span class="pill ${r.type.toLowerCase()}">${r.type==='Free'?'Free': 'Premium'}</span><span class="pill">${esc(r.level)}</span></div><h3>${esc(r.title)}</h3><div class="resource-foot"><button class="subtle-button" data-resource="${r.id}">View resource ${icon('arrow',15)}</button><button class="save-button ${saved?'saved':''}" data-save="${r.id}" aria-label="${saved?'Remove saved item':'Save item'}" title="${saved?'Saved':'Save'}">${icon('bookmark',17)}</button></div></div></article>`}
+function filteredResources(){return resources.filter(r=>{const q=state.query.trim().toLowerCase();const matchQ=!q||[r.title,r.subject,r.level,r.category,r.language,r.format].join(' ').toLowerCase().includes(q);const matchC=state.category==='all'||r.category===state.category;const matchT=state.type==='all'||r.type.toLowerCase()===state.type;const matchS=state.section!=='saved'||state.saved.includes(r.id);return matchQ&&matchC&&matchT&&matchS})}
+function emptyState(title,txt='Try a different search or category.'){return `<div class="empty-state">${icon('search',30)}<strong>${esc(title)}</strong><span>${esc(txt)}</span></div>`}
+function home(){return `<div class="page-head fade-in"><h1 class="page-title">Study Material</h1><button class="subtle-button" data-section="library">View library ${icon('arrow',16)}</button></div>
+<section class="section"><div class="section-heading"><h2>Browse categories</h2></div><div class="category-grid">${categories.map(c=>`<button class="category-card" data-category="${c.id}" style="--tone:${c.tone};--color:${c.color};--orb:${c.tone}"><span class="category-icon" style="--tone:${c.tone};--color:${c.color}">${icon(c.icon,24)}</span><strong>${c.name}</strong><span class="count">${c.count}</span></button>`).join('')}</div></section>
+<section class="section"><div class="section-heading"><h2>Quick access</h2></div><div class="quick-grid">${quick.map(q=>`<button class="quick-card" data-section="${q.id}"><span class="quick-icon">${icon(q.icon,21)}</span><span><strong>${q.name}</strong></span></button>`).join('')}</div></section>
+<section class="section"><div class="section-heading"><h2>Popular resources</h2><button class="link-button" data-section="library">See all ${icon('arrow',14)}</button></div><div class="resources">${[resources[0],resources[1],resources[4]].map(resourceCard).join('')}</div></section>
+<section class="section"><div class="section-heading"><h2>Study tools</h2></div><div class="page-grid"><article class="feature-card"><span class="feature-icon">${icon('quiz',24)}</span><h3>Quiz practice</h3><button class="subtle-button" data-section="quiz">Start a quiz ${icon('arrow',15)}</button></article><article class="feature-card"><span class="feature-icon">${icon('exam',24)}</span><h3>Mock exams</h3><button class="subtle-button" data-section="mock">Practice now ${icon('arrow',15)}</button></article><article class="feature-card"><span class="feature-icon">${icon('folder',24)}</span><h3>Projects & templates</h3><button class="subtle-button" data-section="projects">Open projects ${icon('arrow',15)}</button></article></div></section>`}
+function library(){const filtered=filteredResources();return `<div class="page-head"><h1 class="page-title">${state.section==='saved'?'Saved Items':'Library'}</h1><button class="subtle-button" data-action="clearFilters">${icon('filter',16)} Reset filters</button></div><div class="catalog-top"><div class="library-tools"><button class="filter-button ${state.type==='all'?'active':''}" data-type="all">All</button><button class="filter-button ${state.type==='free'?'active':''}" data-type="free">Free</button><button class="filter-button ${state.type==='premium'?'active':''}" data-type="premium">Premium</button></div><span class="result-count">${filtered.length} resources</span></div><div class="library-tools" aria-label="Categories"><button class="filter-button ${state.category==='all'?'active':''}" data-category-filter="all">All categories</button>${categories.map(c=>`<button class="filter-button ${state.category===c.id?'active':''}" data-category-filter="${c.id}">${c.name}</button>`).join('')}</div>${state.query?`<div class="result-count" style="margin-bottom:12px">Search: “${esc(state.query)}” <button class="link-button" data-action="clearQuery">Clear</button></div>`:''}<div class="resources">${filtered.map(resourceCard).join('')||emptyState(state.section==='saved'?'No saved items yet':'No resources found',state.section==='saved'?'Tap the bookmark on any resource to save it here.':'Try a shorter search or reset the filters.')}</div>`}
+function projects(){const cards=[['Project report template','file','School & college','A clean structure for reports and assignments.'],['Business plan outline','briefcase','Business studies','Organise a concept, market and budget.'],['Science project ideas','atom','Science','Choose a topic and plan the experiment.'],['Study timetable','clock','Planning','Build a simple weekly study plan.'],['Presentation planner','chart','Presentations','Outline slides before designing them.'],['Research notes board','pen','Research','Collect sources and arrange key points.']];return `<div class="page-head"><h1 class="page-title">Projects</h1><button class="subtle-button" data-action="projectInfo">${icon('folder',16)} Project guide</button></div><div class="page-grid">${cards.map((c,i)=>`<article class="feature-card"><div class="feature-top"><span class="feature-icon">${icon(c[1],23)}</span><span class="pill">${c[2]}</span></div><h3>${c[0]}</h3><button class="subtle-button" data-project="${i}">Open template ${icon('arrow',15)}</button></article>`).join('')}</div>`}
+function quizzes(isMock=false){const opts=isMock?['Maths Mock Exam','Science Mock Exam','English Mock Exam','General Knowledge Mock Exam']:['Basics Quiz','Maths Quiz','Science Quiz','English Quiz'];return `<div class="page-head"><h1 class="page-title">${isMock?'Mock Exam':'Quiz'}</h1><span class="pill">${isMock?'Timed practice':'Quick practice'}</span></div><div class="page-grid">${opts.map((name,i)=>`<article class="feature-card"><div class="feature-top"><span class="feature-icon">${icon(isMock?'exam':'quiz',24)}</span><span class="pill">3 questions</span></div><h3>${name}</h3><button class="primary-button" data-startquiz="${isMock?name.replace(' Mock Exam',''):name.replace(' Quiz','')}" data-mock="${isMock?'yes':'no'}">${isMock?'Start exam':'Start quiz'} ${icon('arrow',15)}</button></article>`).join('')}</div><section class="section"><div class="section-heading"><h2>Your results</h2></div><div class="feature-card" style="min-height:unset"><div class="feature-top"><span class="feature-icon">${icon('chart',24)}</span><span class="pill">This device</span></div><h3>Practice history</h3><p style="font-size:12px;color:var(--muted);margin:0 0 12px">${Number(localStorage.getItem('tloribless-quizzes')||0)} completed sessions</p><button class="subtle-button" data-action="clearProgress">Clear local history</button></div></section>`}
+function render(){const main=$('#main');main.innerHTML=state.section==='home'?home():state.section==='library'||state.section==='saved'?library():state.section==='projects'?projects():state.section==='quiz'?quizzes(false):state.section==='mock'?quizzes(true):home();$$('.nav-item').forEach(btn=>{const active=btn.dataset.section===state.section||(state.section==='saved'&&btn.dataset.section==='library');btn.classList.toggle('active',active);if(active)btn.setAttribute('aria-current','page');else btn.removeAttribute('aria-current')});$('#globalSearch').value=state.query;applyLanguage(main);}
+function openModal(title,body){$('#modalTitle').textContent=title;$('#modalTitle')._en=title;$('#modalBody').innerHTML=body;$('#modalBackdrop').classList.add('open');applyLanguage($('#modalTitle'));applyLanguage($('#modalBody'));document.body.style.overflow='hidden'}
+function closeModal(){$('#modalBackdrop').classList.remove('open');document.body.style.overflow=''}
+function aboutAction(action){closePopups();const content={account:['Account & sign in',`<p>Secure accounts, cloud sync and paid purchases need a connected backend. This demo does not collect passwords or payment details.</p><p><strong>Current version:</strong> browsing, search, quiz practice and saved items on this device.</p>`],settings:['Study preferences',`<p>Choose a display language from the profile menu. Saved items and practice counts are stored only in this browser.</p><p>Do not add private student details to this public demo.</p>`],language:['Language',`<p>Choose the interface language.</p><button class="subtle-button" data-language="en">English</button> <button class="subtle-button" data-language="hi">हिन्दी</button>`],planner:['Study planner',`<p>A planner view is reserved here. A persistent planner across devices will need a secure account service.</p><label for="planText">Today's study target</label><input id="planText" placeholder="e.g. Revise 2 chapters" style="width:100%;margin:10px 0;padding:12px;border:1px solid var(--line);border-radius:10px"><button class="primary-button" data-action="savePlan">Save on this device</button>`],progress:['Progress',`<p>Practice sessions completed on this device: <strong>${Number(localStorage.getItem('tloribless-quizzes')||0)}</strong>.</p><p>Detailed progress tracking can be added when account storage is connected.</p>`],privacy:['Privacy',`<p>This prototype stores saved resource IDs, language choice and practice count in local browser storage. No sign-in or payment details are collected.</p><p>Before opening the site to real users, add a complete privacy policy and a secure account/data service.</p>`],terms:['Terms',`<p>Sample catalog entries are placeholders and are not real downloadable study materials. Publish only resources you created, licensed or have permission to distribute.</p>`],about:['About Tloribless',`<p><strong>Tloribless</strong> — Built for Your Next Move.</p><p>A study-resource concept for notes, projects, quizzes and mock exams.</p>`],projectInfo:['Project guide',`<p>Choose a template to plan a project. Add the real files and instructions before publishing this site to students.</p>`],notifications:['Notifications',`<p>You're all caught up.</p>`]};const item=content[action]||['Coming soon',`<p>This area is a placeholder in the current frontend demo.</p>`];openModal(item[0],item[1])}
+function resourceInfo(id){const r=resources.find(x=>x.id===id);if(!r)return;openModal(r.title,`<div class="resource-meta"><span class="pill ${r.type.toLowerCase()}">${r.type}</span><span class="pill">${esc(r.format)}</span><span class="pill">${esc(r.language)}</span></div><p><strong>Subject:</strong> ${esc(r.subject)}</p><p><strong>Level:</strong> ${esc(r.level)}</p><p>This is a sample catalog card. Add the actual PDF, notes or authorized resource link before publishing it as downloadable content.</p><button class="primary-button" data-save="${r.id}">${state.saved.includes(r.id)?'Remove from saved':'Save resource'} ${icon('bookmark',16)}</button>`)}
+function startQuiz(name,isMock){const key=name==='Basics'?'Basics':name==='Maths'?'Maths':name==='Science'?'Science':name==='English'?'English':'Basics';state.quiz={name,isMock,questions:quizSets[key]||quizSets.Basics};state.quizIndex=0;state.quizAnswers=[];showQuizQuestion()}
+function showQuizQuestion(){const q=state.quiz.questions[state.quizIndex];const total=state.quiz.questions.length;const idx=state.quizIndex;openModal(state.quiz.isMock?'Mock Exam: '+state.quiz.name:'Quiz: '+state.quiz.name,`<div class="result-count">Question ${idx+1} of ${total}${state.quiz.isMock?' · Practice timer not connected':''}</div><div class="quiz-progress"><span style="width:${((idx)/total)*100}%"></span></div><p class="quiz-question">${esc(q.q)}</p><form id="quizForm">${q.opts.map((o,i)=>`<label class="quiz-option"><input type="radio" name="answer" value="${i}" required> <span>${esc(o)}</span></label>`).join('')}<button class="primary-button" type="submit" style="width:100%;margin-top:12px">${idx===total-1?'Finish':'Next question'} ${icon('arrow',15)}</button></form>`)}
+$('#main').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.section){setSection(b.dataset.section);return}if(b.dataset.category){state.category=b.dataset.category;state.type='all';state.section='library';render();window.scrollTo({top:0,behavior:'smooth'});return}if(b.dataset.categoryFilter){state.category=b.dataset.categoryFilter;render();return}if(b.dataset.type){state.type=b.dataset.type;render();return}if(b.dataset.resource){resourceInfo(b.dataset.resource);return}if(b.dataset.save){const id=b.dataset.save;if(state.saved.includes(id)){state.saved=state.saved.filter(x=>x!==id);toast('Removed from saved items')}else{state.saved.push(id);toast('Saved to your library')}saveSaved();render();if($('#modalBackdrop').classList.contains('open')){const r=resources.find(x=>x.id===id);if(r)resourceInfo(id)}return}if(b.dataset.startquiz){startQuiz(b.dataset.startquiz,b.dataset.mock==='yes');return}if(b.dataset.action){const a=b.dataset.action;if(a==='clearFilters'){state.category='all';state.type='all';state.query='';render();return}if(a==='clearQuery'){state.query='';$('#globalSearch').value='';render();return}if(a==='clearProgress'){localStorage.removeItem('tloribless-quizzes');toast('Local practice history cleared');render();return}if(a==='savePlan'){const input=$('#planText');if(input&&input.value.trim()){try{localStorage.setItem('tloribless-plan',input.value.trim())}catch(_){}toast('Study target saved on this device');closeModal()}else toast('Enter a study target first');return}aboutAction(a);return}if(b.dataset.project!==undefined){const names=['Project report template','Business plan outline','Science project ideas','Study timetable','Presentation planner','Research notes board'];const name=names[Number(b.dataset.project)]||'Project template';openModal(name,`<p>Use this starter checklist to prepare your project.</p><ol><li>Set a clear topic and objective.</li><li>Collect reliable sources.</li><li>Prepare an outline and key points.</li><li>Review formatting, references and spelling.</li></ol><p>Attach the actual editable template before making this resource public.</p>`);return}});
+$('#globalSearch').addEventListener('input',e=>{state.query=e.target.value;const q=state.query.trim().toLowerCase(),panel=$('#searchResults');if(!q){panel.classList.remove('open');if(state.section==='library'||state.section==='saved')render();return}const matches=resources.filter(r=>[r.title,r.subject,r.level,r.category,r.language].join(' ').toLowerCase().includes(q)).slice(0,6);panel.innerHTML=matches.length?matches.map(r=>`<button class="search-result" role="option" data-search-resource="${r.id}"><span class="result-icon">${icon(r.icon,19)}</span><span><strong>${esc(r.title)}</strong><small>${esc(r.subject)} · ${esc(r.level)}</small></span></button>`).join('')+`<button class="search-result" data-search-all="true"><span class="result-icon">${icon('search',18)}</span><span><strong>See all results</strong><small>Open Library</small></span></button>`:`<div class="search-empty">No matching resource. Try another keyword.</div>`;panel.classList.add('open');applyLanguage(panel);if(state.section==='library'||state.section==='saved')render()});
+$('#searchResults').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.searchResource;$('#searchResults').classList.remove('open');if(id){state.section='library';state.query=resources.find(r=>r.id===id).title;render();resourceInfo(id)}else if(b.dataset.searchAll){state.section='library';render()}});
+$('#notificationBtn').addEventListener('click',()=>togglePopup('notificationPopup',$('#notificationBtn')));$('#profileBtn').addEventListener('click',()=>togglePopup('profilePopup',$('#profileBtn')));$('#menuBtn').addEventListener('click',()=>togglePopup('menuPopup',$('#menuBtn')));
+document.addEventListener('click',e=>{if(!e.target.closest('.topbar')&&!e.target.closest('.popup'))closePopups();if(!e.target.closest('.search-wrap')&&!e.target.closest('.search-results'))$('#searchResults').classList.remove('open')});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-language]');if(b){state.lang=b.dataset.language;localStorage.setItem('tloribless-lang',state.lang);closeModal();$('#languageTrail').textContent=state.lang==='hi'?'हिन्दी':'English';applyLanguage(document.body);render();toast(state.lang==='hi'?'भाषा चुनी गई। कुछ सामग्री अंग्रेज़ी में रह सकती है।':'Language selected.');return}});
+document.addEventListener('click',e=>{const b=e.target.closest('button,a');if(!b||b.closest('#main'))return;if(b.tagName==='A'&&b.dataset.action)e.preventDefault();if(b.dataset.section){setSection(b.dataset.section);return}if(b.dataset.action){const a=b.dataset.action;if(a==='clearFilters'){state.category='all';state.type='all';state.query='';render();return}if(a==='clearQuery'){state.query='';$('#globalSearch').value='';render();return}if(a==='clearProgress'){localStorage.removeItem('tloribless-quizzes');toast('Local practice history cleared');render();return}if(a==='savePlan'){const input=$('#planText');if(input&&input.value.trim()){try{localStorage.setItem('tloribless-plan',input.value.trim())}catch(_){}toast('Study target saved on this device');closeModal()}else toast('Enter a study target first');return}aboutAction(a);return}if(b.dataset.save){const id=b.dataset.save;if(state.saved.includes(id)){state.saved=state.saved.filter(x=>x!==id);toast('Removed from saved items')}else{state.saved.push(id);toast('Saved to your library')}saveSaved();render();if($('#modalBackdrop').classList.contains('open'))resourceInfo(id);return}});
+$('#modalClose').addEventListener('click',closeModal);$('#modalBackdrop').addEventListener('click',e=>{if(e.target===$('#modalBackdrop'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closePopups();$('#searchResults').classList.remove('open')}});
+document.addEventListener('submit',e=>{if(e.target.id==='quizForm'){e.preventDefault();const picked=e.target.querySelector('input[name="answer"]:checked');if(!picked){toast('Choose an answer first');return}state.quizAnswers.push(Number(picked.value));if(state.quizIndex<state.quiz.questions.length-1){state.quizIndex++;showQuizQuestion()}else{const score=state.quizAnswers.reduce((s,a,i)=>s+(a===state.quiz.questions[i].a?1:0),0);try{localStorage.setItem('tloribless-quizzes',String(Number(localStorage.getItem('tloribless-quizzes')||0)+1))}catch(_){}openModal('Practice complete',`<div style="text-align:center;padding:8px 0 15px"><div class="feature-icon" style="margin:0 auto 14px;width:58px;height:58px">${icon('check',30)}</div><h3 style="font-size:28px;margin:0 0 4px;color:var(--teal)">${score}/${state.quiz.questions.length}</h3><p>${score===state.quiz.questions.length?'Perfect score.':score>0?'Practice makes progress.':'Keep practising and try again.'}</p></div><button class="primary-button" style="width:100%" id="finishQuiz">Back to ${state.quiz.isMock?'Mock Exam':'Quiz'} list</button>`);$('#finishQuiz').addEventListener('click',()=>{closeModal();render()})}}});
+$('#year').textContent=new Date().getFullYear();render();applyLanguage(document.body);
+})();
+</script>
 </body>
 </html>
