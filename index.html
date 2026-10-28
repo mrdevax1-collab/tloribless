@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B1020">
+  <meta name="description" content="Tloribless — study notes, books, practice questions and skills to help you take your next move.">
+  <title>Tloribless — Built for Your Next Move</title>
+
+  <style>
+    :root {
+      --bg: #0B1020;
+      --panel: #11182B;
+      --panel2: #161F35;
+      --purple: #8B5CF6;
+      --cyan: #06B6D4;
+      --pink: #F472B6;
+      --text: #F4F6FF;
+      --muted: #A2ADC5;
+      --border: rgba(255,255,255,.09);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 75% 0%, rgba(139,92,246,.13), transparent 36%),
+        var(--bg);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+    .wrap { width: min(1160px, 92%); margin: auto; }
+    .muted { color: var(--muted); }
+    .eyebrow {
+      color: #BDA5FF; font-size: .76rem; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    .topbar {
+      text-align: center; padding: 8px 12px;
+      background: linear-gradient(90deg, #6D35D7, #164E80);
+      font-size: .78rem; font-weight: 650;
+    }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(11,16,32,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      min-height: 76px; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .logo {
+      width: 43px; height: 43px; flex-shrink: 0;
+      display: grid; place-items: center; border-radius: 14px;
+      color: white; font-size: 23px; font-weight: 900;
+      background: linear-gradient(140deg, var(--purple), var(--cyan));
+      box-shadow: 0 5px 24px rgba(139,92,246,.24);
+    }
+    .brand-name { font-size: 1.2rem; font-weight: 850; letter-spacing: -.5px; }
+    .tagline { color: var(--muted); font-size: .68rem; }
+    .nav-links { display: flex; align-items: center; gap: 20px; }
+    .nav-links a { font-size: .86rem; color: #D1D7E8; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .icon-btn, .menu-btn {
+      border: 1px solid var(--border); background: var(--panel);
+      color: var(--text); border-radius: 12px; padding: 9px 12px;
+    }
+    .menu-btn { display: none; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 7px; border: 0; border-radius: 12px; padding: 11px 17px;
+      font-weight: 750; color: white;
+      background: linear-gradient(110deg, var(--purple), #6D5CE8);
+      box-shadow: 0 5px 18px rgba(139,92,246,.17);
+      transition: transform .2s, filter .2s;
+    }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .btn-secondary {
+      background: var(--panel2); border: 1px solid var(--border);
+      box-shadow: none;
+    }
+    .btn-cyan { background: linear-gradient(110deg, #0891B2, var(--cyan)); }
+    .hero { padding: 62px 0 38px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.15fr .85fr;
+      gap: 38px; align-items: center;
+    }
+    h1 {
+      font-size: clamp(2.35rem, 5.5vw, 4.25rem);
+      line-height: 1.1; letter-spacing: -2px; margin: 15px 0 18px;
+    }
+    .gradient-text {
+      background: linear-gradient(95deg, #C4B5FD, #67E8F9);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-copy { max-width: 590px; color: var(--muted); font-size: 1.02rem; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 24px; }
+    .hero-note { font-size: .78rem; color: var(--muted); margin-top: 17px; }
+    .hero-art {
+      position: relative; min-height: 300px; display: grid; place-items: center;
+      border: 1px solid var(--border); border-radius: 28px; overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(139,92,246,.26), transparent 45%),
+        linear-gradient(145deg, #171F39, #101629);
+    }
+    .orbit {
+      width: 210px; height: 210px; border: 1px solid rgba(103,232,249,.4);
+      border-radius: 50%; display: grid; place-items: center;
+      box-shadow: 0 0 70px rgba(139,92,246,.13);
+    }
+    .book-emoji { font-size: 94px; filter: drop-shadow(0 12px 22px #050816); }
+    .float-card {
+      position: absolute; background: rgba(17,24,43,.95);
+      border: 1px solid var(--border); border-radius: 13px;
+      padding: 11px 14px; box-shadow: 0 12px 35px #070B16;
+      font-size: .8rem;
+    }
+    .float-card strong { display: block; font-size: .95rem; }
+    .float-one { top: 24px; left: 16px; }
+    .float-two { bottom: 24px; right: 14px; }
+    .float-three { bottom: 24px; left: 16px; }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      margin-top: 30px;
+    }
+    .stat { padding: 15px; border: 1px solid var(--border); border-radius: 15px; background: rgba(17,24,43,.6); }
+    .stat strong { display: block; font-size: 1.25rem; }
+    .stat span { color: var(--muted); font-size: .75rem; }
+    section { padding: 36px 0; scroll-margin-top: 85px; }
+    .section-head {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 15px; margin-bottom: 22px;
+    }
+    h2 { margin: 5px 0; font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.25; }
+    .section-desc { color: var(--muted); font-size: .9rem; margin: 5px 0 0; }
+    .search-panel {
+      display: flex; gap: 10px; padding: 10px;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 17px;
+    }
+    .search-panel input {
+      flex: 1; min-width: 0; color: var(--text); background: transparent;
+      border: 0; outline: 0; padding: 8px 10px;
+    }
+    .search-panel input::placeholder { color: #8793AD; }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; margin: 17px 0 22px; }
+    .chip {
+      border: 1px solid var(--border); background: var(--panel);
+      color: #C7D0E4; border-radius: 100px; padding: 8px 14px;
+      font-size: .8rem;
+    }
+    .chip.active, .chip:hover { color: white; background: #35245E; border-color: var(--purple); }
+    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+    .category {
+      display: block; text-align: left; padding: 19px; min-height: 148px;
+      background: linear-gradient(145deg, var(--panel2), var(--panel));
+      border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);
+      transition: transform .2s, border-color .2s;
+    }
+    .category:hover { transform: translateY(-3px); border-color: var(--purple); }
+    .category-icon {
+      width: 43px; height: 43px; display: grid; place-items: center;
+      border-radius: 13px; background: rgba(139,92,246,.16);
+      font-size: 22px; margin-bottom: 13px;
+    }
+    .category strong { display: block; font-size: .93rem; }
+    .category span { display: block; color: var(--muted); font-size: .77rem; margin-top: 5px; }
+    .resource-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .resource {
+      overflow: hidden; background: var(--panel); border: 1px solid var(--border);
+      border-radius: var(--radius); display: flex; flex-direction: column;
+    }
+    .resource-cover {
+      min-height: 145px; display: grid; place-items: center;
+      background: radial-gradient(circle at 50% 30%, rgba(139,92,246,.3), transparent 55%), #151E34;
+      font-size: 50px; position: relative;
+    }
+    .pill {
+      position: absolute; top: 12px; left: 12px; padding: 4px 9px;
+      border-radius: 100px; font-size: .69rem; font-weight: 800;
+      background: rgba(6,182,212,.15); color: #67E8F9; border: 1px solid rgba(6,182,212,.22);
+    }
+    .pill.paid { color: #F0ABFC; background: rgba(192,38,211,.13); border-color: rgba(192,38,211,.2); }
+    .resource-body { padding: 17px; display: flex; flex: 1; flex-direction: column; }
+    .resource-type { color: #BDA5FF; text-transform: uppercase; letter-spacing: 1px; font-size: .68rem; font-weight: 800; }
+    .resource h3 { font-size: 1rem; margin: 7px 0; line-height: 1.4; }
+    .resource p { font-size: .81rem; color: var(--muted); margin: 0 0 17px; }
+    .resource-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+    .resource-foot .btn { padding: 8px 12px; font-size: .78rem; }
+    .price { font-size: .82rem; font-weight: 800; }
+    .book-feature {
+      display: grid; grid-template-columns: .75fr 1.25fr; gap: 25px; align-items: center;
+      padding: 28px; border: 1px solid var(--border); border-radius: 23px;
+      background: linear-gradient(120deg, rgba(139,92,246,.13), rgba(6,182,212,.06));
+    }
+    .book-stack {
+      min-height: 200px; display: grid; place-items: center;
+      border-radius: 18px; background: #131C32; font-size: 75px;
+    }
+    .book-feature p { color: var(--muted); }
+    .feature-list { padding-left: 19px; color: #D6DEEF; font-size: .9rem; }
+    .feature-list li { margin: 7px 0; }
+    .progress-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .progress-card { background: var(--panel); border: 1px solid var(--border); padding: 18px; border-radius: 16px; }
+    .progress-card strong { font-size: 1.45rem; display: block; }
+    .progress-card span { color: var(--muted); font-size: .8rem; }
+    .progress-track { height: 6px; background: #273149; border-radius: 9px; margin-top: 12px; overflow: hidden; }
+    .progress-track div { height: 100%; border-radius: 9px; background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+    .cta {
+      padding: 30px; border-radius: 22px; text-align: center;
+      border: 1px solid rgba(139,92,246,.3);
+      background: radial-gradient(ellipse at top, rgba(139,92,246,.2), transparent 70%), var(--panel);
+    }
+    .cta p { color: var(--muted); }
+    footer { border-top: 1px solid var(--border); padding: 28px 0; margin-top: 30px; }
+    .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: .8rem; }
+    .fine-print { color: var(--muted); font-size: .74rem; margin-top: 20px; }
+    .notice {
+      display: none; position: fixed; z-index: 50; bottom: 20px; left: 50%;
+      transform: translateX(-50%); width: min(92%, 450px); padding: 14px 16px;
+      background: #1A2540; border: 1px solid #534080; border-radius: 14px;
+      box-shadow: 0 12px 40px #0008; font-size: .86rem;
+    }
+    .notice.show { display: block; }
+    .empty-state { display: none; color: var(--muted); text-align: center; padding: 25px; }
+    #profileMenu {
+      display: none; position: absolute; right: 4%; top: 68px; width: 220px;
+      background: var(--panel2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 10px; box-shadow: 0 15px 40px #0008;
+    }
+    #profileMenu.show { display: block; }
+    #profileMenu button { width: 100%; text-align: left; background: transparent; color: var(--text); border: 0; padding: 10px; border-radius: 8px; }
+    #profileMenu button:hover { background: #29324A; }
+    @media (max-width: 850px) {
+      .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 18px 4%; background: #0E1426; border-bottom: 1px solid var(--border); flex-direction: column; align-items: stretch; gap: 14px; }
+      .nav-links.open { display: flex; }
+      .menu-btn { display: inline-flex; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-art { min-height: 260px; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .resource-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .nav { min-height: 67px; gap: 7px; }
+      .logo { width: 38px; height: 38px; }
+      .brand-name { font-size: 1.05rem; }
+      .tagline { font-size: .61rem; }
+      .nav-actions { gap: 5px; }
+      .nav-actions .btn { padding: 9px 10px; font-size: .76rem; }
+      .nav-actions .icon-btn { padding: 8px 9px; }
+      .hero { padding-top: 40px; }
+      h1 { letter-spacing: -1.2px; }
+      .hero-art { min-height: 235px; }
+      .orbit { width: 165px; height: 165px; }
+      .book-emoji { font-size: 72px; }
+      .float-card { font-size: .7rem; padding: 8px 10px; }
+      .stats { gap: 7px; }
+      .stat { padding: 10px; }
+      .stat strong { font-size: 1.05rem; }
+      .stat span { font-size: .68rem; }
+      section { padding: 27px 0; }
+      .section-head { align-items: start; flex-direction: column; }
+      .search-panel { gap: 5px; }
+      .search-panel .btn { padding: 9px 11px; }
+      .category-grid { gap: 9px; }
+      .category { padding: 13px; min-height: 135px; }
+      .category strong { font-size: .84rem; }
+      .category span { font-size: .72rem; }
+      .resource-grid { grid-template-columns: 1fr; }
+      .resource-cover { min-height: 125px; }
+      .book-feature { grid-template-columns: 1fr; padding: 17px; }
+      .book-stack { min-height: 130px; }
+      .progress-grid { grid-template-columns: 1fr; }
+      .cta { padding: 23px 17px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Your next chapter starts here · Free learning resources for curious minds</div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Tloribless home">
+        <div class="logo">T</div>
+        <div>
+          <div class="brand-name">Tloribless</div>
+          <div class="tagline">Built for Your Next Move.</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#categories">Explore</a>
+        <a href="#resources">Study Resources</a>
+        <a href="#books">Books</a>
+        <a href="#skills">Skills</a>
+        <a href="#dashboard">My Learning</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="notificationBtn" aria-label="Notifications">♧</button>
+        <button class="icon-btn" id="profileBtn" aria-label="Profile menu">◉</button>
+        <a href="#resources" class="btn">Explore</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+      </div>
+      <div id="profileMenu">
+        <button data-message="Student profile and secure sign-in will be added in a future update.">👤 Student Profile</button>
+        <button data-message="Saved resources will work when accounts are connected.">♡ Saved Resources</button>
+        <button data-message="Account settings will be available after secure sign-in is built.">⚙ Settings</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" id="home">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Learn · Practice · Grow</div>
+            <h1>Your goals.<br>Your pace.<br><span class="gradient-text">Your next move.</span></h1>
+            <p class="hero-copy">
+              One place for study notes, important questions, exam practice,
+              inspiring books and practical skills. Learn in Hindi or English
+              and keep moving towards the future you want.
+            </p>
+            <div class="hero-buttons">
+              <a href="#categories" class="btn">Explore Resources →</a>
+              <a href="#skills" class="btn btn-secondary">Discover Skills</a>
+            </div>
+            <p class="hero-note">For school students, college learners, exam aspirants and lifelong learners.</p>
+            <div class="stats">
+              <div class="stat"><strong>Free + Paid</strong><span>Learning options</span></div>
+              <div class="stat"><strong>Hindi + English</strong><span>Language choices</span></div>
+              <div class="stat"><strong>All Learners</strong><span>One learning hub</span></div>
+            </div>
+          </div>
+          <div class="hero-art" aria-label="Books and learning illustration">
+            <div class="orbit"><div class="book-emoji">📚</div></div>
+            <div class="float-card float-one">✦ Keep learning<strong>One step at a time</strong></div>
+            <div class="float-card float-two">🎯 Your next move<strong>Starts with practice</strong></div>
+            <div class="float-card float-three">✎ Notes · Books · Skills</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="search">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Find what you need</div>
+            <h2>Search your learning library</h2>
+            <p class="section-desc">Search the sample resources by topic, subject or exam.</p>
+          </div>
+        </div>
+        <div class="search-panel">
+          <input id="searchInput" type="search" placeholder="Try Maths, NCERT, business, coding..." aria-label="Search resources">
+          <button class="btn btn-cyan" id="searchBtn">Search</button>
+        </div>
+        <div class="chips" id="filterChips">
+          <button class="chip active" data-filter="All">All</button>
+          <button class="chip" data-filter="School Study">School Study</button>
+          <button class="chip" data-filter="Competitive Exams">Competitive Exams</button>
+          <button class="chip" data-filter="College">College</button>
+          <button class="chip" data-filter="Digital Skills">Digital Skills</button>
+          <button class="chip" data-filter="Books Beyond Academics">Books Beyond Academics</button>
+          <button class="chip" data-filter="Free">Free</button>
+        </div>
+      </section>
+
+      <section id="categories">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Explore your path</div>
+            <h2>Learning, organised for you</h2>
+            <p class="section-desc">Choose a category to explore relevant sample resources.</p>
+          </div>
+        </div>
+        <div class="category-grid">
+          <button class="category" data-category="School Study">
+            <div class="category-icon">🎓</div><strong>School Study</strong><span>Classes 1–12 · Boards · Subjects</span>
+          </button>
+          <button class="category" data-category="College">
+            <div class="category-icon">🏛️</div><strong>College & University</strong><span>Courses · Semesters · Notes</span>
+          </button>
+          <button class="category" data-category="Competitive Exams">
+            <div class="category-icon">🏆</div><strong>Competitive Exams</strong><span>JEE · NEET · SSC · UPSC</span>
+          </button>
+          <button class="category" data-category="School Study">
+            <div class="category-icon">📝</div><strong>Question Papers</strong><span>Practice · Revision · Mock papers</span>
+          </button>
+          <button class="category" data-category="Books Beyond Academics">
+            <div class="category-icon">📖</div><strong>Books Beyond Academics</strong><span>Money · Habits · Business · Stories</span>
+          </button>
+          <button class="category" data-category="Digital Skills">
+            <div class="category-icon">💻</div><strong>Digital Skills</strong><span>Coding · AI · Design · Computer</span>
+          </button>
+          <button class="category" data-category="Digital Skills">
+            <div class="category-icon">🧠</div><strong>Tests & Practice</strong><span>Quizzes · Practice · Self-check</span>
+          </button>
+          <button class="category" data-category="Digital Skills">
+            <div class="category-icon">🚀</div><strong>Career & Business</strong><span>Communication · Careers · Ideas</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="resources">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Start learning today</div>
+            <h2>Featured resources</h2>
+            <p class="section-desc">These are demo listings. Real files and paid products are not connected yet.</p>
+          </div>
+          <button class="btn btn-secondary" id="clearFilters">Reset filters</button>
+        </div>
+
+        <div class="resource-grid" id="resourceGrid">
+          <article class="resource" data-category="School Study" data-free="true" data-search="class 10 maths formulas school notes mathematics">
+            <div class="resource-cover"><span class="pill">FREE DEMO</span>📐</div>
+            <div class="resource-body">
+              <div class="resource-type">School Study · Maths</div>
+              <h3>Class 10 Maths — Formula Revision</h3>
+              <p>A quick-revision resource concept for key formulas and last-minute practice.</p>
+              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="This is a sample listing. The real revision PDF will be added after the resource system is built.">View resource</button></div>
+            </div>
+          </article>
+
+          <article class="resource" data-category="Competitive Exams" data-free="true" data-search="competitive exam general knowledge practice questions quiz">
+            <div class="resource-cover"><span class="pill">FREE DEMO</span>🎯</div>
+            <div class="resource-body">
+              <div class="resource-type">Competitive Exams</div>
+              <h3>General Knowledge — Practice Set</h3>
+              <p>A sample practice-set listing for revision and self-assessment.</p>
+              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="Practice questions and scoring will be connected in a later version.">Start practice</button></div>
+            </div>
+          </article>
+
+          <article class="resource" data-category="College" data-free="true" data-search="college economics notes study semester">
+            <div class="resource-cover"><span class="pill">FREE DEMO</span>📊</div>
+            <div class="resource-body">
+              <div class="resource-type">College · Economics</div>
+              <h3>Economics — Study Notes</h3>
+              <p>A placeholder for clearly organised college notes and topic summaries.</p>
+              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="College notes will be added by subject and semester after the content library is built.">View notes</button></div>
+            </div>
+          </article>
+
+          <article class="resource" data-category="Digital Skills" data-free="true" data-search="coding html css web development digital skills">
+            <div class="resource-cover"><span class="pill">FREE DEMO</span>💻</div>
+            <div class="resource-body">
+              <div class="resource-type">Digital Skills</div>
+              <h3>Web Development — First Steps</h3>
+              <p>Explore the basics of HTML, CSS and how websites are structured.</p>
+              <div class="resource-foot"><span class="price">Free sample</span><button class="btn" data-message="A complete web development learning path will be added in a future update.">Explore skill</button></div>
+            </div>
+          </article>
+
+          <article class="resource" data-category="Books Beyond Academics" data-free="false" data-search="rich dad poor dad money financial literacy business book">
+            <div class="resource-cover"><span class="pill paid">BOOK INFO</span>💰</div>
+            <div class="resource-body">
+              <div class="resource-type">Books Beyond Academics</div>
+              <h3>Rich Dad Poor Dad — Reading Guide</h3>
+              <p>Plan for original notes about financial literacy and lessons from the book.</p>
+              <div class="resource-foot"><span class="price">Authorised book link</span><button class="btn" data-message="This is only a concept listing. No copyrighted book PDF is provided. An authorised book link can be added after verification.">Book details</button></div>
+            </div>
+          </article>
+
+          <article class="resource" data-category="Digital Skills" data-free="false" data-search="business communication career freelancing skills">
+            <div class="resource-cover"><span class="pill paid">PREVIEW</span>🚀</div>
+            <div class="resource-body">
+              <div class="resource-type">Career & Business</div>
+              <h3>Communication & Career Skills</h3>
+              <p>A planned learning module for confidence, communication and work skills.</p>
+              <div class="resource-foot"><span class="price">Coming soon</span><button class="btn" data-message="This course is not for sale yet. Course content and secure payments have not been implemented.">Course preview</button></div>
+            </div>
+          </article>
+        </div>
+        <div class="empty-state" id="emptyState">No matching demo resources. Try a different search or reset filters.</div>
+      </section>
+
+      <section id="books">
+        <div class="book-feature">
+          <div class="book-stack">📚</div>
+          <div>
+            <div class="eyebrow">Beyond the classroom</div>
+            <h2>Books Beyond Academics</h2>
+            <p>Build knowledge beyond exams with reading guides, original notes and key ideas from books on money, habits, business and personal growth.</p>
+            <ul class="feature-list">
+              <li>Self-help, habits and productivity</li>
+              <li>Money management and financial literacy</li>
+              <li>Business, biographies, novels and inspiring stories</li>
+              <li>Hindi and English reading resources</li>
+            </ul>
+            <a class="btn" href="#resources" id="bookExplore">Explore book resources →</a>
+            <p class="fine-print">Copyrighted books will only be offered through authorised sources unless distribution permission is available.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Skills for tomorrow</div>
+            <h2>Learn beyond your syllabus</h2>
+            <p class="section-desc">A planned space for practical skills and career exploration.</p>
+          </div>
+        </div>
+        <div class="category-grid">
+          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">🤖</div><strong>AI & Technology</strong><span>AI literacy and digital tools</span></a>
+          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">⌨️</div><strong>Coding & Websites</strong><span>Programming fundamentals</span></a>
+          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">🎨</div><strong>Design & Editing</strong><span>Visual creativity and media</span></a>
+          <a class="category" href="#resources" data-category-link="Digital Skills"><div class="category-icon">💼</div><strong>Business & Careers</strong><span>Communication and work skills</span></a>
+        </div>
+      </section>
+
+      <section id="dashboard">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Your learning space</div>
+            <h2>My learning dashboard</h2>
+            <p class="section-desc">A visual preview of the future student dashboard. Your personal progress is not saved yet.</p>
+          </div>
+        </div>
+        <div class="progress-grid">
+          <div class="progress-card"><span>Learning goal</span><strong>Stay consistent</strong><span>Build your daily study routine</span><div class="progress-track"><div style="width:68%"></div></div></div>
+          <div class="progress-card"><span>Saved resources</span><strong>Coming soon</strong><span>Keep useful resources together</span><div class="progress-track"><div style="width:35%"></div></div></div>
+          <div class="progress-card"><span>Practice & quizzes</span><strong>Coming soon</strong><span>Track practice and improvement</span><div class="progress-track"><div style="width:20%"></div></div></div>
+        </div>
+      </section>
+
+      <section id="get-started">
+        <div class="cta">
+          <div class="eyebrow">Built for your next move</div>
+          <h2>Your learning journey starts with one step.</h2>
+          <p>Explore the sample categories today. More resources and learning tools will be added as the platform develops.</p>
+          <a href="#categories" class="btn btn-cyan">Start exploring →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <a class="brand" href="#home">
+          <div class="logo">T</div>
+          <div><div class="brand-name">Tloribless</div><div class="tagline">Built for Your Next Move.</div></div>
+        </a>
+        <div class="footer-links">
+          <a href="#categories">Explore</a>
+          <a href="#books">Books</a>
+          <a href="#skills">Skills</a>
+          <a href="#help" id="helpLink">Help & Support</a>
+          <a href="#privacy" id="privacyLink">Privacy</a>
+        </div>
+      </div>
+      <p class="fine-print">© <span id="year"></span> Tloribless. Educational resources and original learning notes.</p>
+      <p class="fine-print">Demo website: accounts, payments, private downloads, saved progress and support systems are not connected yet.</p>
+    </div>
+  </footer>
+
+  <div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const resourceCards = [...document.querySelectorAll(".resource")];
+    const filterChips = [...document.querySelectorAll("[data-filter]")];
+    const emptyState = document.getElementById("emptyState");
+    const notice = document.getElementById("notice");
+    let activeFilter = "All";
+    let noticeTimer;
+
+    function showNotice(message) {
+      notice.textContent = message;
+      notice.classList.add("show");
+      clearTimeout(noticeTimer);
+      noticeTimer = setTimeout(() => notice.classList.remove("show"), 3500);
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      resourceCards.forEach(card => {
+        const category = card.dataset.category;
+        const searchText = (card.dataset.search + " " + card.innerText).toLowerCase();
+        const categoryMatch =
+          activeFilter === "All" ||
+          (activeFilter === "Free" && card.dataset.free === "true") ||
+          category === activeFilter;
+        const searchMatch = !query || searchText.includes(query);
+        const show = categoryMatch && searchMatch;
+        card.style.display = show ? "flex" : "none";
+        if (show) visible++;
+      });
+
+      emptyState.style.display = visible ? "none" : "block";
+    }
+
+    filterChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        activeFilter = chip.dataset.filter;
+        filterChips.forEach(item => item.classList.toggle("active", item === chip));
+        applyFilters();
+        document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      applyFilters();
+      document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+    searchInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        applyFilters();
+        document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+
+    document.querySelectorAll("[data-category]").forEach(button => {
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.category;
+        filterChips.forEach(chip => chip.classList.toggle("active", chip.dataset.filter === activeFilter));
+        applyFilters();
+        document.getElementById("resources").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-category-link]").forEach(link => {
+      link.addEventListener("click", () => {
+        activeFilter = link.dataset.categoryLink;
+        filterChips.forEach(chip => chip.classList.toggle("active", chip.dataset.filter === activeFilter));
+        applyFilters();
+      });
+    });
+
+    document.getElementById("clearFilters").addEventListener("click", () => {
+      activeFilter = "All";
+      searchInput.value = "";
+      filterChips.forEach(chip => chip.classList.toggle("active", chip.dataset.filter === "All"));
+      applyFilters();
+    });
+
+    document.querySelectorAll("[data-message]").forEach(button => {
+      button.addEventListener("click", () => showNotice(button.dataset.message));
+    });
+
+    document.getElementById("notificationBtn").addEventListener("click", () => {
+      showNotice("You are all caught up. Real notifications will be added after the account system is built.");
+    });
+
+    const profileMenu = document.getElementById("profileMenu");
+    document.getElementById("profileBtn").addEventListener("click", () => {
+      profileMenu.classList.toggle("show");
+    });
+    profileMenu.querySelectorAll("button").forEach(button => {
+      button.addEventListener("click", () => {
+        profileMenu.classList.remove("show");
+        showNotice(button.dataset.message);
+      });
+    });
+    document.addEventListener("click", event => {
+      if (!profileMenu.contains(event.target) &&
+          event.target.id !== "profileBtn") {
+        profileMenu.classList.remove("show");
+      }
+    });
+
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      document.getElementById("navLinks").classList.toggle("open");
+    });
+    document.querySelectorAll("#navLinks a").forEach(link => {
+      link.addEventListener("click", () => document.getElementById("navLinks").classList.remove("open"));
+    });
+
+    document.getElementById("helpLink").addEventListener("click", event => {
+      event.preventDefault();
+      showNotice("Support contact will be added before the website launches.");
+    });
+    document.getElementById("privacyLink").addEventListener("click", event => {
+      event.preventDefault();
+      showNotice("A proper privacy policy will be published before accounts or personal data are collected.");
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    applyFilters();
+  </script>
+</body>
+</html>
