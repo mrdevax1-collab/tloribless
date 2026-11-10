@@ -3,270 +3,245 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f6f1">
-<meta name="description" content="Tloribless homepage design preview — study resources, learning paths and free materials.">
-<title>Tloribless | Homepage Demo</title>
+<meta name="theme-color" content="#f5f4ef">
+<meta name="description" content="Tloribless is a thoughtfully organised learning library for study materials, subjects, exam preparation and practical knowledge.">
+<link rel="icon" href="tloribless-logo-transparent.svg" type="image/svg+xml">
+<title>Tloribless — A learning library for every next step</title>
 <style>
-:root{--ink:#172d42;--muted:#687789;--line:#e5e8e5;--paper:#fff;--canvas:#f7f6f1;--navy:#1b354d;--navy2:#294a62;--teal:#287b72;--teal-soft:#e9f3ef;--copper:#c77b50;--sand:#f3e9dc;--shadow:0 18px 50px rgba(23,45,66,.08);--r:22px}
+:root{--ink:#17283a;--ink-2:#263c50;--muted:#697887;--paper:#fff;--canvas:#f5f4ef;--line:#e6e6df;--blue:#465bd6;--blue-dark:#3448bb;--blue-pale:#edf0ff;--orange:#efaa69;--orange-pale:#fff1e4;--mint:#dcece5;--mint-ink:#316b5a;--shadow:0 18px 50px rgba(24,39,56,.08);--radius:22px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:100px}
-body{margin:0;background:var(--canvas);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inherit;cursor:pointer}
-:focus-visible{outline:3px solid #a9c7c0;outline-offset:3px}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid #92a0fb;outline-offset:3px}
 .icon{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.shell{width:min(1160px,calc(100% - 48px));margin:auto}
-.header{position:sticky;top:0;z-index:20;background:rgba(247,246,241,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(220,225,220,.9)}
-.header-in{height:82px;display:flex;align-items:center;gap:26px}
-.brand{display:flex;align-items:center;gap:11px;flex:none}
-.brand img{width:46px;height:46px;object-fit:contain;border-radius:12px}
-.brand-copy{display:flex;flex-direction:column}
-.brand-name{font-size:20px;font-weight:850;letter-spacing:-.055em;line-height:1.08}
-.brand-tag{font-size:9px;color:var(--muted);letter-spacing:.025em;margin-top:4px}
-.search{height:46px;max-width:410px;flex:1;margin-left:auto;display:flex;align-items:center;gap:11px;padding:0 15px;background:#fff;border:1px solid var(--line);border-radius:14px;color:#829092}
-.search:focus-within{border-color:#9cbeb5;box-shadow:0 0 0 4px rgba(40,123,114,.08)}
-.search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:13px}
-.search input::placeholder{color:#8a9697}
-.actions{display:flex;align-items:center;gap:5px}
-.menu-wrap{position:relative}
-.icon-btn{width:42px;height:42px;display:grid;place-items:center;border:1px solid transparent;border-radius:13px;background:transparent;color:#536775}
-.icon-btn:hover,.icon-btn[aria-expanded=true]{background:#fff;border-color:var(--line)}
-.panel{position:absolute;right:0;top:51px;width:230px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);display:none}
-.panel.open{display:block;animation:pop .15s ease-out}
-.panel-title{font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:850;color:#8b9899;padding:7px 9px}
-.panel-line{display:flex;align-items:center;gap:10px;padding:11px 9px;border-radius:10px;font-size:12px;font-weight:650;color:#415768}
-.panel-line:hover{background:#f5f7f4}
-.panel-line .icon{width:17px;height:17px;color:var(--teal)}
-main{padding:28px 0 70px}
-.hero{min-height:400px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:35px;padding:48px 52px;border-radius:30px;background:linear-gradient(115deg,#fff 0%,#f1f3ec 100%);border:1px solid #e6e9e1;overflow:hidden;position:relative}
-.hero:after{content:"";position:absolute;right:-130px;top:-190px;width:430px;height:430px;border:1px solid rgba(40,123,114,.12);border-radius:50%;pointer-events:none}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:850;color:var(--teal)}
-.eyebrow:before{content:"";height:2px;width:22px;background:var(--copper);border-radius:2px}
-.hero h1{max-width:550px;margin:17px 0 15px;font-size:clamp(39px,5vw,59px);line-height:1.04;letter-spacing:-.065em;font-weight:850}
-.hero h1 em{font-style:normal;color:var(--teal)}
-.hero-copy{max-width:470px;margin:0;color:#687987;font-size:14px;line-height:1.8}
-.hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
-.btn{min-height:47px;padding:0 19px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:13px;font-size:12px;font-weight:800;transition:transform .16s,background .16s,border-color .16s}
-.btn:hover{transform:translateY(-2px)}
-.btn-primary{background:var(--navy);color:#fff;box-shadow:0 8px 18px rgba(27,53,77,.14)}
-.btn-primary:hover{background:var(--navy2)}
-.btn-light{background:#fff;border-color:var(--line);color:var(--ink)}
-.btn-light:hover{border-color:#b7c9c1}
-.hero-visual{min-height:280px;display:grid;place-items:center;position:relative}
-.learning-board{width:min(100%,390px);min-height:282px;position:relative;overflow:hidden;border-radius:25px;background:linear-gradient(145deg,#203d53,#142b40);padding:24px;color:white;box-shadow:0 24px 48px rgba(24,48,68,.2)}
-.learning-board:before{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(255,255,255,.1);border-radius:50%;right:-100px;top:-130px}
-.board-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
-.board-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#c2d2d5}
-.board-dot{width:8px;height:8px;border-radius:50%;background:#a9d5c7;box-shadow:0 0 0 5px rgba(169,213,199,.12)}
-.board-title{position:relative;z-index:1;font-size:24px;font-weight:800;letter-spacing:-.045em;line-height:1.15;margin-top:26px;max-width:245px}
-.board-sub{position:relative;z-index:1;font-size:11px;color:#c7d3d8;margin-top:8px}
-.board-items{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:27px}
-.board-item{min-height:82px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.075);border-radius:13px;padding:11px;display:flex;flex-direction:column;justify-content:space-between}
-.board-item .icon{color:#b7dece;width:21px;height:21px}
-.board-item span{font-size:10px;font-weight:700;color:#e8eff0}
-.board-note{position:absolute;right:14px;bottom:12px;font-size:8px;color:#b6c5cb;letter-spacing:.05em}
-.section{margin-top:43px}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}
-.section-head h2{margin:0;font-size:24px;letter-spacing:-.045em;line-height:1.2;font-weight:820}
-.section-head p{margin:6px 0 0;color:var(--muted);font-size:12px}
-.section-link{display:inline-flex;align-items:center;gap:7px;color:var(--teal);font-size:12px;font-weight:800;white-space:nowrap}
-.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.quick-card{display:flex;align-items:center;gap:17px;min-height:112px;padding:21px;background:#fff;border:1px solid var(--line);border-radius:19px;text-align:left;transition:transform .16s,border-color .16s,box-shadow .16s}
-.quick-card:hover{transform:translateY(-2px);border-color:#b9d0c7;box-shadow:var(--shadow)}
-.quick-icon{width:49px;height:49px;display:grid;place-items:center;flex:none;border-radius:16px;background:var(--teal-soft);color:var(--teal)}
-.quick-card:nth-child(2) .quick-icon{background:#f8eee5;color:var(--copper)}
-.quick-icon .icon{width:23px;height:23px}
-.quick-copy{min-width:0}
-.quick-copy strong{display:block;font-size:16px;letter-spacing:-.02em}
-.quick-copy small{display:block;margin-top:4px;font-size:11px;color:var(--muted);line-height:1.5}
-.quick-arrow{margin-left:auto;color:#8a9999}
-.quick-arrow .icon{width:18px;height:18px}
-.category-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.category-card{min-height:172px;padding:18px 16px;background:#fff;border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;align-items:flex-start;transition:transform .16s,border-color .16s,box-shadow .16s}
-.category-card:hover{transform:translateY(-3px);border-color:#b9d0c7;box-shadow:var(--shadow)}
-.category-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:var(--tone);color:var(--accent);margin-bottom:16px}
-.category-icon .icon{width:22px;height:22px}
-.category-card strong{font-size:13px;line-height:1.35;letter-spacing:-.015em}
-.category-card small{font-size:10px;line-height:1.5;color:var(--muted);margin-top:6px}
-.card-foot{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto;padding-top:13px;color:var(--teal);font-size:10px;font-weight:800}
-.card-foot .icon{width:15px;height:15px}
-.subjects{display:flex;gap:9px;flex-wrap:wrap}
-.subject-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:11px;font-weight:700;color:#405667;transition:border-color .15s,background .15s}
-.subject-pill:hover{border-color:#b8cfc6;background:#f7fbf8}
-.subject-pill .icon{width:17px;height:17px;color:var(--teal)}
-.free-panel{display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;padding:27px 30px;border:1px solid #e5e9df;border-radius:22px;background:linear-gradient(105deg,#edf4ef,#f8f1e8)}
-.free-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--teal);font-weight:850}
-.free-panel h2{margin:7px 0 5px;font-size:23px;letter-spacing:-.04em}
-.free-panel p{margin:0;color:#657779;font-size:12px;line-height:1.65;max-width:560px}
-.footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:48px;padding-top:21px;border-top:1px solid var(--line);font-size:11px;color:#788789}
-.footer-brand{font-weight:850;color:var(--ink)}
-.footer-links{display:flex;gap:17px}
-.footer a:hover{color:var(--teal)}
-.dialog-backdrop{position:fixed;inset:0;z-index:50;background:rgba(17,36,52,.4);display:none;align-items:center;justify-content:center;padding:18px}
-.dialog-backdrop.open{display:flex}
-.dialog{width:min(420px,100%);padding:24px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 70px rgba(17,36,52,.2)}
-.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:15px}
-.dialog h3{margin:0;font-size:19px;letter-spacing:-.035em}
-.close{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;display:grid;place-items:center}
-.dialog p{margin:13px 0 0;color:var(--muted);font-size:12px;line-height:1.7}
-.demo-label{display:inline-block;margin-top:14px;padding:5px 8px;border-radius:7px;background:#f5f2e9;color:#8b7048;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-@keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:940px){.hero{padding:40px 34px;gap:20px}.hero h1{font-size:48px}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:680px){.shell{width:calc(100% - 32px)}.header-in{height:auto;min-height:70px;gap:9px;flex-wrap:wrap;padding:9px 0}.brand img{width:40px;height:40px}.brand-name{font-size:18px}.brand-tag{font-size:8px}.actions{margin-left:auto}.icon-btn{width:37px;height:37px}.search{order:3;flex:0 0 100%;max-width:none;height:41px;margin:0}.panel{top:46px}main{padding-top:17px}.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 22px;border-radius:23px}.hero h1{font-size:clamp(36px,9vw,48px)}.hero-copy{font-size:13px}.hero-actions{margin-top:19px}.btn{min-height:44px;padding:0 14px}.hero-visual{min-height:230px}.learning-board{width:min(100%,400px);min-height:250px;padding:19px;border-radius:21px}.board-title{font-size:22px;margin-top:20px}.board-items{margin-top:20px}.board-item{min-height:70px;padding:9px}.section{margin-top:34px}.section-head{align-items:flex-start}.section-head h2{font-size:21px}.section-head p{font-size:11px}.quick-grid{gap:10px}.quick-card{min-height:100px;padding:14px;gap:11px;border-radius:16px}.quick-icon{width:41px;height:41px;border-radius:13px}.quick-copy strong{font-size:14px}.quick-copy small{font-size:10px}.quick-arrow{display:none}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category-card{min-height:154px;padding:15px 13px}.category-card strong{font-size:12px}.category-card small{font-size:10px}.free-panel{grid-template-columns:1fr;padding:22px;gap:16px}.free-panel h2{font-size:21px}.free-panel .btn{justify-self:start}.footer{flex-direction:column;align-items:flex-start;padding-bottom:12px}.footer-links{gap:14px}}
-@media(max-width:370px){.shell{width:calc(100% - 24px)}.brand-tag{display:none}.hero{padding:25px 17px 18px}.hero h1{font-size:34px}.hero-actions{gap:7px}.btn{font-size:11px;padding:0 11px}.quick-card{padding:11px;gap:9px}.quick-icon{width:36px;height:36px}.quick-copy strong{font-size:13px}.category-card{padding:12px;min-height:146px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.wrap{width:min(1180px,calc(100% - 48px));margin:0 auto}
+.announcement{background:#17283a;color:#e9edf0;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.announcement-in{height:34px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.announcement strong{color:#f4b77d;font-weight:800}
+.header{position:sticky;top:0;z-index:30;background:rgba(245,244,239,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(221,222,215,.88)}
+.header-in{min-height:82px;display:flex;align-items:center;gap:30px}
+.brand{display:flex;align-items:center;gap:11px;flex:none}.brand img{width:43px;height:43px;object-fit:contain}
+.brand-copy{display:flex;flex-direction:column;line-height:1.12}.brand-name{font-size:19px;font-weight:850;letter-spacing:-.055em}.brand-tag{font-size:9px;color:#7b8790;margin-top:4px;letter-spacing:.015em}
+.nav{display:flex;align-items:center;gap:25px;margin-left:auto}.nav a{font-size:12px;font-weight:700;color:#526373;transition:color .16s}.nav a:hover,.nav a.active{color:var(--blue)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.search-box{height:42px;width:190px;display:flex;align-items:center;gap:9px;padding:0 12px;background:#fff;border:1px solid var(--line);border-radius:12px;color:#81909a;transition:border-color .16s,box-shadow .16s}
+.search-box:focus-within{border-color:#9ba8f1;box-shadow:0 0 0 3px rgba(70,91,214,.08)}
+.search-box input{width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:11px;color:var(--ink)}.search-box input::placeholder{color:#9aa3a8}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:0 17px;border:1px solid transparent;border-radius:12px;font-size:11px;font-weight:800;transition:transform .16s,background .16s,border-color .16s}
+.button:hover{transform:translateY(-2px)}.button-primary{background:var(--blue);color:white;box-shadow:0 7px 16px rgba(70,91,214,.18)}.button-primary:hover{background:var(--blue-dark)}
+.button-light{background:white;border-color:var(--line);color:var(--ink)}.button-light:hover{border-color:#b9c2f7}.button .icon{width:16px;height:16px}
+.menu-toggle{display:none;width:42px;height:42px;place-items:center;background:white;border:1px solid var(--line);border-radius:12px;color:var(--ink)}
+.search-status{display:none;background:#fff;border-bottom:1px solid var(--line);font-size:11px;color:#596b7a}.search-status.show{display:block}
+.search-status-in{min-height:42px;display:flex;align-items:center;justify-content:space-between;gap:12px}.search-status button{border:0;background:none;color:var(--blue);font-size:11px;font-weight:800}
+main{padding:30px 0 72px}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:440px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:25px;padding:55px 58px;border-radius:30px;background:#172b40;color:#fff}
+.hero:before{content:"";position:absolute;z-index:-1;width:590px;height:590px;right:-140px;top:-280px;border:1px solid rgba(255,255,255,.13);border-radius:50%;box-shadow:0 0 0 48px rgba(255,255,255,.025),0 0 0 100px rgba(255,255,255,.02)}
+.hero:after{content:"";position:absolute;z-index:-1;width:380px;height:380px;left:36%;bottom:-320px;border-radius:50%;background:rgba(70,91,214,.25);filter:blur(20px)}
+.hero-copy{max-width:570px;position:relative;z-index:2}.kicker{display:inline-flex;align-items:center;gap:9px;color:#efb77f;font-size:9px;font-weight:850;letter-spacing:.17em;text-transform:uppercase}
+.kicker:before{content:"";width:23px;height:2px;background:#efb77f;border-radius:3px}
+.hero h1{max-width:570px;margin:20px 0 17px;font-size:clamp(42px,5.3vw,66px);line-height:.99;letter-spacing:-.067em;font-weight:850}.hero h1 span{color:#aeb9ff}
+.hero-copy p{max-width:465px;margin:0;color:#c3ced7;font-size:14px;line-height:1.85}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}.hero .button-light{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:white}.hero .button-light:hover{background:rgba(255,255,255,.14)}
+.hero-visual{min-height:310px;position:relative;display:grid;place-items:center}.orbit{position:absolute;width:345px;height:345px;border:1px solid rgba(255,255,255,.12);border-radius:50%;transform:rotate(-18deg)}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.1);border-radius:50%}.orbit:before{inset:26px}.orbit:after{inset:55px}
+.library-stack{position:relative;width:min(100%,365px);height:295px}.stack-shadow{position:absolute;width:265px;height:215px;right:12px;top:45px;border-radius:22px;background:#e2a269;transform:rotate(7deg);opacity:.95}
+.stack-card{position:absolute;inset:18px 22px 17px 8px;padding:22px;border-radius:20px;background:#f8f7f1;color:var(--ink);box-shadow:0 25px 50px rgba(0,0,0,.23);transform:rotate(-4deg)}
+.stack-top{display:flex;align-items:center;justify-content:space-between;color:#71808a;font-size:8px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.stack-mark{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:var(--blue);color:#fff}.stack-mark .icon{width:15px;height:15px}
+.stack-heading{margin:20px 0 4px;font-size:24px;line-height:1.05;letter-spacing:-.055em;font-weight:850}.stack-sub{font-size:10px;color:#71808a}
+.stack-list{display:grid;gap:8px;margin-top:20px}.stack-row{display:flex;align-items:center;gap:10px;padding:9px 10px;background:#fff;border:1px solid #ecece5;border-radius:10px}
+.stack-row-icon{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:var(--blue-pale);color:var(--blue);flex:none}
+.stack-row:nth-child(2) .stack-row-icon{background:var(--orange-pale);color:#b66f35}.stack-row:nth-child(3) .stack-row-icon{background:var(--mint);color:var(--mint-ink)}
+.stack-row-icon .icon{width:14px;height:14px}.stack-row b{display:block;font-size:9px;line-height:1.2}.stack-row small{display:block;margin-top:3px;color:#88939b;font-size:8px}
+.float-note{position:absolute;right:-1px;bottom:12px;padding:11px 14px;border-radius:13px;background:#fff;color:var(--ink);box-shadow:0 12px 25px rgba(0,0,0,.15);transform:rotate(4deg)}
+.float-note small{display:block;color:#76828c;font-size:8px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}.float-note strong{display:block;margin-top:2px;font-size:12px}.float-note strong span{color:var(--blue)}
+.hero-foot{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:31px;color:#b7c3cd;font-size:9px;letter-spacing:.05em}.hero-foot span{display:inline-flex;align-items:center;gap:7px}.hero-foot .icon{width:13px;height:13px;color:#9caae9}
+.section{margin-top:58px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}
+.section-kicker{display:block;margin-bottom:8px;color:var(--blue);font-size:9px;font-weight:850;letter-spacing:.16em;text-transform:uppercase}
+.section-head h2{margin:0;font-size:clamp(24px,3vw,32px);line-height:1.13;letter-spacing:-.052em;font-weight:850}
+.section-head p{max-width:490px;margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.65}
+.text-link{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:var(--blue);font-size:11px;font-weight:850}.text-link .icon{width:15px;height:15px}
+.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.resource-card{min-height:176px;position:relative;display:flex;flex-direction:column;padding:20px;background:#fff;border:1px solid var(--line);border-radius:18px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.resource-card:hover{transform:translateY(-4px);border-color:#c7cafa;box-shadow:var(--shadow)}
+.resource-card-top{display:flex;align-items:center;justify-content:space-between}.resource-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:var(--tint);color:var(--accent)}
+.resource-icon .icon{width:21px;height:21px}.resource-number{color:#b1b7bb;font-size:9px;font-weight:800;letter-spacing:.1em}
+.resource-card h3{margin:18px 0 5px;font-size:15px;letter-spacing:-.025em}.resource-card p{max-width:280px;margin:0;color:var(--muted);font-size:10px;line-height:1.65}
+.card-arrow{position:absolute;right:19px;bottom:18px;color:var(--blue)}.card-arrow .icon{width:17px;height:17px}
+.level-wrap{padding:29px;border:1px solid #e4e3dc;border-radius:23px;background:#eeede6}.level-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.level-card{min-height:132px;padding:18px 16px;background:#fff;border:1px solid #e5e4dd;border-radius:15px;display:flex;flex-direction:column;transition:transform .16s,border-color .16s}
+.level-card:hover{transform:translateY(-3px);border-color:#b9c2f7}.level-card small{color:#87939a;font-size:8px;letter-spacing:.13em;text-transform:uppercase;font-weight:850}
+.level-card strong{margin-top:12px;font-size:15px;letter-spacing:-.025em}.level-card span{margin-top:5px;color:var(--muted);font-size:10px;line-height:1.5}.level-card .icon{width:17px;height:17px;margin-top:auto;color:var(--blue);align-self:flex-end}
+.subject-layout{display:grid;grid-template-columns:.78fr 1.22fr;gap:30px;align-items:stretch}
+.subject-intro{padding:27px 27px 24px;border-radius:20px;background:#e5e9ff}.subject-intro .section-kicker{color:#4053c6}
+.subject-intro h3{margin:0;font-size:27px;line-height:1.08;letter-spacing:-.055em}.subject-intro p{margin:12px 0 20px;color:#59668d;font-size:11px;line-height:1.75}
+.subject-intro .button{background:#fff;color:var(--blue);border-color:rgba(70,91,214,.12)}
+.subject-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.subject-card{min-height:83px;display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:14px;transition:border-color .16s,transform .16s}
+.subject-card:hover{border-color:#c3c9fa;transform:translateY(-2px)}.subject-card .resource-icon{width:36px;height:36px;border-radius:11px;flex:none}.subject-card .resource-icon .icon{width:18px;height:18px}
+.subject-card strong{display:block;font-size:11px}.subject-card small{display:block;margin-top:3px;color:#82909a;font-size:9px}
+.subject-card .icon-arrow{margin-left:auto;color:#91a0aa;flex:none}.subject-card .icon-arrow .icon{width:15px;height:15px}
+.free-panel{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;align-items:center;gap:25px;padding:34px 38px;border-radius:23px;background:#dcece5}
+.free-panel:after{content:"";position:absolute;right:150px;top:-125px;width:320px;height:320px;border:1px solid rgba(49,107,90,.13);border-radius:50%;box-shadow:0 0 0 36px rgba(49,107,90,.035),0 0 0 72px rgba(49,107,90,.025)}
+.free-copy{position:relative;z-index:1}.free-copy .section-kicker{color:#316b5a}.free-copy h2{margin:0;font-size:30px;line-height:1.1;letter-spacing:-.055em}
+.free-copy p{max-width:520px;margin:9px 0 0;color:#567468;font-size:11px;line-height:1.7}.free-panel .button{position:relative;z-index:1;background:#1d4e40;color:white}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.step{padding:21px 20px;background:#fff;border:1px solid var(--line);border-radius:17px}
+.step-no{width:29px;height:29px;display:grid;place-items:center;border-radius:9px;background:var(--blue-pale);color:var(--blue);font-size:10px;font-weight:850}
+.step h3{margin:15px 0 5px;font-size:13px}.step p{margin:0;color:var(--muted);font-size:10px;line-height:1.7}
+.footer{margin-top:65px;padding-top:24px;border-top:1px solid #dedfd8}.footer-main{display:flex;justify-content:space-between;gap:25px;align-items:flex-start}
+.footer-brand{display:flex;align-items:center;gap:10px}.footer-brand img{width:36px;height:36px;object-fit:contain}.footer-brand strong{display:block;font-size:15px;letter-spacing:-.035em}
+.footer-brand small{display:block;margin-top:3px;color:#829099;font-size:9px}.footer-note{max-width:300px;margin:12px 0 0;color:#7b878d;font-size:10px;line-height:1.65}
+.footer-links{display:flex;gap:38px}.footer-col strong{display:block;margin-bottom:10px;font-size:10px}.footer-col a{display:block;margin:7px 0;color:#71808a;font-size:10px}.footer-col a:hover{color:var(--blue)}
+.footer-bottom{display:flex;justify-content:space-between;gap:15px;margin-top:27px;padding:14px 0;border-top:1px solid #e5e5df;color:#89939a;font-size:9px}
+.no-results{display:none;margin-top:15px;padding:18px;border:1px dashed #bfc5d1;border-radius:14px;color:#697887;text-align:center;font-size:12px}.no-results.show{display:block}
+@media(max-width:980px){.header-in{gap:18px}.nav{gap:15px}.search-box{width:155px}.hero{padding:46px 40px}.hero h1{font-size:54px}.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.subject-layout{grid-template-columns:.9fr 1.1fr;gap:16px}}
+@media(max-width:720px){
+.wrap{width:calc(100% - 32px)}.announcement-in{height:30px;font-size:8px}.header-in{min-height:70px;flex-wrap:wrap;gap:9px;padding:9px 0}
+.brand img{width:39px;height:39px}.brand-name{font-size:17px}.nav{display:none;order:4;flex:0 0 100%;margin:0;padding:8px 0 12px;align-items:stretch;gap:0;flex-direction:column;border-top:1px solid var(--line)}
+.nav.open{display:flex}.nav a{padding:12px 5px;border-bottom:1px solid #ecece6}.header-actions{margin-left:auto}.search-box{order:3;flex:0 0 100%;width:100%;height:40px}
+.header-actions .button{display:none}.menu-toggle{display:grid}main{padding-top:17px}.hero{grid-template-columns:1fr;gap:17px;padding:33px 24px 21px;border-radius:23px}
+.hero h1{max-width:520px;font-size:clamp(41px,10vw,56px)}.hero-copy p{font-size:12px}.hero-buttons{margin-top:21px}.hero-foot{margin-top:23px;gap:9px 17px}
+.hero-visual{min-height:260px;margin-top:0}.library-stack{height:258px;width:min(100%,340px)}.stack-card{inset:15px 20px 15px 8px;padding:18px}
+.stack-heading{margin-top:15px;font-size:22px}.stack-list{gap:6px;margin-top:15px}.stack-row{padding:7px 9px}.float-note{right:-3px;bottom:1px}
+.section{margin-top:42px}.section-head{align-items:flex-start}.section-head h2{font-size:25px}.section-head p{font-size:11px}
+.resource-grid{gap:10px}.resource-card{min-height:168px;padding:15px}.resource-card h3{margin-top:14px;font-size:13px}.resource-card p{font-size:9px}
+.level-wrap{padding:18px}.level-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.level-card{min-height:120px;padding:14px}
+.subject-layout{grid-template-columns:1fr;gap:12px}.subject-intro{padding:23px}.subject-intro h3{font-size:25px}
+.subject-grid{gap:8px}.subject-card{min-height:75px;padding:10px;gap:9px}.subject-card strong{font-size:10px}
+.free-panel{grid-template-columns:1fr;padding:26px 23px;gap:18px}.free-copy h2{font-size:26px}.free-panel .button{justify-self:start}
+.steps{grid-template-columns:1fr;gap:9px}.step{padding:16px}.step h3{margin-top:10px}
+.footer-main{flex-direction:column}.footer-links{width:100%;justify-content:space-between;gap:15px}.footer-bottom{flex-direction:column;gap:6px}
+}
+@media(max-width:390px){.wrap{width:calc(100% - 24px)}.announcement-in span:last-child{display:none}.hero{padding:28px 18px 19px}.hero h1{font-size:39px}.hero-buttons{gap:8px}.button{padding:0 12px;font-size:10px}.resource-grid{grid-template-columns:1fr}.resource-card{min-height:145px}.subject-grid{grid-template-columns:1fr}.level-card strong{font-size:13px}.footer-links{gap:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
 </style>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.2 16.2 4.3 4.3"/></symbol>
-<symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
-<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
-<symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
-<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
-<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22M8 7h8M8 11h8"/></symbol>
-<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16"/></symbol>
-<symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18l-6-4-6 4z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
 <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
-<symbol id="i-school" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5zM6 11v5c3.5 3 8.5 3 12 0v-5M22 9v7"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22M8 7h8M8 11h8"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 14h8M8 18h8"/></symbol>
+<symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4.5V3h6v1.5M8 10h8M8 14h8M8 18h5"/></symbol>
 <symbol id="i-graduation" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5zM6 11v5c3.5 3 8.5 3 12 0v-5M22 9v7"/></symbol>
-<symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16M2 21h20M8 8h1m6 0h1m-8 4h1m6 0h1M10 21v-5h4v5"/></symbol>
-<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
 <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6m-5 4h4m-5.5-6.5A7 7 0 1 1 15.5 15.5C14.4 16.3 14 17 14 18h-4c0-1-.4-1.7-1.5-2.5z"/></symbol>
-<symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18"/></symbol>
 <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 6-7"/></symbol>
+<symbol id="i-calculator" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8v4H8zM8 14h1m6 0h1M8 18h1m6 0h1m-3-4v4"/></symbol>
 <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/></symbol>
 <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-5 4 5 4m8-8 5 4-5 4m-2-12-4 16"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
 </svg>
+<div class="announcement"><div class="wrap announcement-in"><span><strong>Tloribless</strong> &nbsp;·&nbsp; Study, skills & useful knowledge</span><span>One library. Many ways to move forward.</span></div></div>
 <header class="header">
-  <div class="shell header-in">
-    <a class="brand" href="homepage-demo.html" aria-label="Tloribless home">
-      <img src="tloribless-logo.png" alt="Tloribless original logo">
-      <span class="brand-copy"><span class="brand-name">Tloribless</span><span class="brand-tag">Built for Your next Move.</span></span>
-    </a>
-    <form class="search" id="siteSearch" role="search">
-      <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
-      <input id="searchInput" type="search" placeholder="Search classes, subjects, books or skills" aria-label="Search learning categories">
-    </form>
-    <div class="actions">
-      <div class="menu-wrap">
-        <button class="icon-btn" id="notifyBtn" aria-label="Notifications" aria-expanded="false" title="Notifications"><svg class="icon"><use href="#i-bell"/></svg></button>
-        <div class="panel" id="notifyPanel"><div class="panel-title">Notifications</div><div class="panel-line"><svg class="icon"><use href="#i-bell"/></svg><span>No new updates in this preview.</span></div></div>
-      </div>
-      <div class="menu-wrap">
-        <button class="icon-btn" id="profileBtn" aria-label="Profile" aria-expanded="false" title="Profile"><svg class="icon"><use href="#i-user"/></svg></button>
-        <div class="panel" id="profilePanel"><div class="panel-title">Your account</div><div class="panel-line"><svg class="icon"><use href="#i-user"/></svg><span>Sign-in and profile are planned features.</span></div></div>
-      </div>
-      <div class="menu-wrap">
-        <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" title="More"><svg class="icon"><use href="#i-more"/></svg></button>
-        <nav class="panel" id="menuPanel" aria-label="Main menu">
-          <div class="panel-title">Navigate</div>
-          <a class="panel-line" href="homepage-demo.html"><svg class="icon"><use href="#i-home"/></svg>Home</a>
-          <a class="panel-line" href="library.html"><svg class="icon"><use href="#i-book"/></svg>Study Library</a>
-          <a class="panel-line" href="#free"><svg class="icon"><use href="#i-download"/></svg>Free Resources</a>
-          <a class="panel-line" href="#subjects"><svg class="icon"><use href="#i-globe"/></svg>Subjects</a>
-          <button class="panel-line" type="button" data-dialog="settings"><svg class="icon"><use href="#i-lightbulb"/></svg>Settings</button>
-        </nav>
-      </div>
+  <div class="wrap header-in">
+    <a class="brand" href="homepage-demo.html" aria-label="Tloribless home"><img src="tloribless-logo.png" alt="Tloribless logo"><span class="brand-copy"><span class="brand-name">Tloribless</span><span class="brand-tag">Built for Your next Move.</span></span></a>
+    <nav class="nav" id="mainNav" aria-label="Main navigation"><a class="active" href="#discover">Discover</a><a href="#subjects">Subjects</a><a href="#levels">Study levels</a><a href="#free">Free resources</a></nav>
+    <div class="header-actions">
+      <label class="search-box" aria-label="Search the learning library"><svg class="icon"><use href="#i-search"/></svg><input id="siteSearch" type="search" placeholder="Search the library..." autocomplete="off"></label>
+      <a class="button button-primary" href="library.html">Open library <svg class="icon"><use href="#i-arrow"/></svg></a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false"><svg class="icon"><use href="#i-menu"/></svg></button>
     </div>
   </div>
 </header>
-<main class="shell">
-  <section class="section" aria-labelledby="quickTitle">
-    <div class="section-head"><div><h2 id="quickTitle">Your quick access</h2><p>Keep the resources you use close at hand.</p></div></div>
-    <div class="quick-grid">
-      <button class="quick-card" type="button" data-dialog="downloads">
-        <span class="quick-icon"><svg class="icon"><use href="#i-download"/></svg></span>
-        <span class="quick-copy"><strong>Downloads</strong><small>Access your downloaded study materials.</small></span>
-        <span class="quick-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span>
-      </button>
-      <button class="quick-card" type="button" data-dialog="saved">
-        <span class="quick-icon"><svg class="icon"><use href="#i-bookmark"/></svg></span>
-        <span class="quick-copy"><strong>Saved</strong><small>Keep useful resources together for later.</small></span>
-        <span class="quick-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span>
-      </button>
+<div class="search-status" id="searchStatus" aria-live="polite"><div class="wrap search-status-in"><span id="searchMessage">Showing matching areas</span><button id="clearSearch" type="button">Clear search</button></div></div>
+<main class="wrap">
+  <section class="hero" id="discover">
+    <div class="hero-copy"><span class="kicker">The Tloribless learning library</span><h1>Study resources for the <span>road ahead.</span></h1><p>Find notes, books, important questions, exam preparation and practical learning material in one organised place.</p>
+      <div class="hero-buttons"><a class="button button-primary" href="library.html">Explore the library <svg class="icon"><use href="#i-arrow"/></svg></a><a class="button button-light" href="#subjects">Browse subjects</a></div>
+      <div class="hero-foot"><span><svg class="icon"><use href="#i-check"/></svg> School to university</span><span><svg class="icon"><use href="#i-check"/></svg> Free and paid material</span><span><svg class="icon"><use href="#i-check"/></svg> Hindi and English</span></div>
+    </div>
+    <div class="hero-visual" aria-label="Illustration of an organised study library"><div class="orbit"></div><div class="library-stack"><div class="stack-shadow"></div><div class="stack-card">
+      <div class="stack-top"><span>Your learning library</span><span class="stack-mark"><svg class="icon"><use href="#i-book"/></svg></span></div>
+      <div class="stack-heading">A place for<br>every subject.</div><div class="stack-sub">Choose a topic. Find your material.</div>
+      <div class="stack-list">
+        <div class="stack-row"><span class="stack-row-icon"><svg class="icon"><use href="#i-file"/></svg></span><span><b>Notes & study material</b><small>Read, revise and make progress</small></span></div>
+        <div class="stack-row"><span class="stack-row-icon"><svg class="icon"><use href="#i-clipboard"/></svg></span><span><b>Questions & exam practice</b><small>Prepare with purpose</small></span></div>
+        <div class="stack-row"><span class="stack-row-icon"><svg class="icon"><use href="#i-lightbulb"/></svg></span><span><b>Skills & knowledge</b><small>Build beyond the classroom</small></span></div>
+      </div>
+    </div><div class="float-note"><small>Made for learning</small><strong>Keep your next step <span>clear.</span></strong></div></div></div>
+  </section>
+
+  <section class="section" id="library">
+    <div class="section-head"><div><span class="section-kicker">Explore the library</span><h2>Find the kind of material you need.</h2><p>Start with a resource type. Every section has a clear purpose.</p></div><a class="text-link" href="library.html">View all resources <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="resource-grid" id="resourceGrid">
+      <a class="resource-card" href="library.html" data-searchable="notes study material pdf chapter summaries learning notes"><div class="resource-card-top"><span class="resource-icon" style="--tint:#edf0ff;--accent:#465bd6"><svg class="icon"><use href="#i-file"/></svg></span><span class="resource-number">01 / READ</span></div><h3>Notes & Study Material</h3><p>Subject notes, chapter material and useful study references.</p><span class="card-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      <a class="resource-card" href="library.html" data-searchable="important questions answers practice worksheets question bank"><div class="resource-card-top"><span class="resource-icon" style="--tint:#fff1e4;--accent:#b66f35"><svg class="icon"><use href="#i-clipboard"/></svg></span><span class="resource-number">02 / PRACTISE</span></div><h3>Important Questions</h3><p>Topic-wise questions and practice material for revision.</p><span class="card-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      <a class="resource-card" href="library.html" data-searchable="books reading library literature ebooks reference books"><div class="resource-card-top"><span class="resource-icon" style="--tint:#e3f0e9;--accent:#38735d"><svg class="icon"><use href="#i-book"/></svg></span><span class="resource-number">03 / READ</span></div><h3>Books & Reading</h3><p>Reading collections, book guides and learning references.</p><span class="card-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      <a class="resource-card" href="library.html" data-searchable="exam preparation mock tests revision competitive exam"><div class="resource-card-top"><span class="resource-icon" style="--tint:#f2eafa;--accent:#8056ae"><svg class="icon"><use href="#i-graduation"/></svg></span><span class="resource-number">04 / PREPARE</span></div><h3>Exam Preparation</h3><p>Revision support, exam-focused material and practice.</p><span class="card-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      <a class="resource-card" href="library.html" data-searchable="skills practical knowledge career business technology"><div class="resource-card-top"><span class="resource-icon" style="--tint:#e4eff3;--accent:#3e7085"><svg class="icon"><use href="#i-lightbulb"/></svg></span><span class="resource-number">05 / BUILD</span></div><h3>Skills & Knowledge</h3><p>Practical topics for curiosity, capability and career growth.</p><span class="card-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      <a class="resource-card" href="library.html" data-searchable="state wise state boards regional syllabus education materials"><div class="resource-card-top"><span class="resource-icon" style="--tint:#f7ece6;--accent:#a65e45"><svg class="icon"><use href="#i-globe"/></svg></span><span class="resource-number">06 / EXPLORE</span></div><h3>State-wise Resources</h3><p>Study material organised by state and education board.</p><span class="card-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+    </div><div class="no-results" id="noResults">No matching sections found. Try another search.</div>
+  </section>
+
+  <section class="section" id="levels"><div class="section-head"><div><span class="section-kicker">Choose your level</span><h2>Start from where you are.</h2><p>Browse material by your current stage of learning.</p></div></div>
+    <div class="level-wrap"><div class="level-grid">
+      <a class="level-card" href="library.html" data-searchable="school class 1 2 3 4 5 6 7 8 9 10 primary secondary"><small>01 · School</small><strong>Classes 1–10</strong><span>Build strong foundations across subjects.</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+      <a class="level-card" href="library.html" data-searchable="intermediate class 11 12 senior secondary"><small>02 · Intermediate</small><strong>Classes 11–12</strong><span>Go deeper with focused subject study.</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+      <a class="level-card" href="library.html" data-searchable="college university undergraduate higher education"><small>03 · Higher education</small><strong>College & University</strong><span>Explore advanced topics and references.</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+      <a class="level-card" href="library.html" data-searchable="independent lifelong learning self learning open study"><small>04 · Self-learning</small><strong>Independent Learning</strong><span>Follow your interests at your own pace.</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div></div>
+  </section>
+
+  <section class="section" id="subjects">
+    <div class="section-head"><div><span class="section-kicker">Browse by subject</span><h2>Explore the ideas behind every field.</h2><p>Move from a broad subject to the specific topic you want to understand.</p></div><a class="text-link" href="library.html">All subjects <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="subject-layout">
+      <div class="subject-intro"><span class="section-kicker">Subject directory</span><h3>Knowledge connects everything.</h3><p>Study one subject at a time, or explore how different fields connect in the real world.</p><a class="button" href="library.html">Open subject library <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+      <div class="subject-grid">
+        <a class="subject-card" href="library.html" data-searchable="business entrepreneurship economics global trade finance"><span class="resource-icon" style="--tint:#edf0ff;--accent:#465bd6"><svg class="icon"><use href="#i-chart"/></svg></span><span><strong>Business & Economics</strong><small>Markets, trade and enterprise</small></span><span class="icon-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+        <a class="subject-card" href="library.html" data-searchable="mathematics statistics algebra geometry data"><span class="resource-icon" style="--tint:#fff1e4;--accent:#b66f35"><svg class="icon"><use href="#i-calculator"/></svg></span><span><strong>Mathematics & Statistics</strong><small>Logic, numbers and data</small></span><span class="icon-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+        <a class="subject-card" href="library.html" data-searchable="science engineering physics chemistry biology"><span class="resource-icon" style="--tint:#e3f0e9;--accent:#38735d"><svg class="icon"><use href="#i-atom"/></svg></span><span><strong>Science & Engineering</strong><small>Understand how things work</small></span><span class="icon-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+        <a class="subject-card" href="library.html" data-searchable="computer digital literacy programming software technology"><span class="resource-icon" style="--tint:#e4eff3;--accent:#3e7085"><svg class="icon"><use href="#i-code"/></svg></span><span><strong>Computers & Technology</strong><small>Digital tools and software</small></span><span class="icon-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+        <a class="subject-card" href="library.html" data-searchable="artificial intelligence data science ai machine learning"><span class="resource-icon" style="--tint:#f2eafa;--accent:#8056ae"><svg class="icon"><use href="#i-lightbulb"/></svg></span><span><strong>AI & Data Science</strong><small>Intelligent systems and data</small></span><span class="icon-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+        <a class="subject-card" href="library.html" data-searchable="languages humanities literature history geography"><span class="resource-icon" style="--tint:#f7ece6;--accent:#a65e45"><svg class="icon"><use href="#i-globe"/></svg></span><span><strong>Languages & Humanities</strong><small>People, culture and expression</small></span><span class="icon-arrow"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="browse" aria-labelledby="browseTitle">
-    <div class="section-head"><div><h2 id="browseTitle">Browse learning categories</h2><p>Start with the stage or area that matches your learning goal.</p></div><a class="section-link" href="library.html">View library <svg class="icon"><use href="#i-arrow"/></svg></a></div>
-    <div class="category-grid" id="categoryGrid">
-      <a class="category-card" href="library.html" data-search="school grades class 1 2 3 4 5 6 7 8 9 10 primary secondary" style="--tone:#edf3e9;--accent:#547b58">
-        <span class="category-icon"><svg class="icon"><use href="#i-school"/></svg></span><strong>School Studies</strong><small>Classes 1–10 · Notes, books and practice</small><span class="card-foot">Explore <svg class="icon"><use href="#i-arrow"/></svg></span>
-      </a>
-      <a class="category-card" href="library.html" data-search="intermediate higher secondary class 11 12 board" style="--tone:#f7eee3;--accent:#a36c37">
-        <span class="category-icon"><svg class="icon"><use href="#i-graduation"/></svg></span><strong>Intermediate</strong><small>Classes 11–12 · Subjects and exam prep</small><span class="card-foot">Explore <svg class="icon"><use href="#i-arrow"/></svg></span>
-      </a>
-      <a class="category-card" href="library.html" data-search="college university degree higher education" style="--tone:#e9f1f5;--accent:#3b708c">
-        <span class="category-icon"><svg class="icon"><use href="#i-building"/></svg></span><strong>College & University</strong><small>Degree-level learning and study material</small><span class="card-foot">Explore <svg class="icon"><use href="#i-arrow"/></svg></span>
-      </a>
-      <a class="category-card" href="library.html" data-search="competitive exams entrance government test preparation" style="--tone:#f5ecee;--accent:#a65b68">
-        <span class="category-icon"><svg class="icon"><use href="#i-target"/></svg></span><strong>Exam Preparation</strong><small>Practice, revision and exam resources</small><span class="card-foot">Explore <svg class="icon"><use href="#i-arrow"/></svg></span>
-      </a>
-      <a class="category-card" href="library.html" data-search="skills knowledge books reading philosophy business technology" style="--tone:#e9f3ef;--accent:#287b72">
-        <span class="category-icon"><svg class="icon"><use href="#i-lightbulb"/></svg></span><strong>Skills & Knowledge</strong><small>Business, technology, books and ideas</small><span class="card-foot">Explore <svg class="icon"><use href="#i-arrow"/></svg></span>
-      </a>
-    </div>
+  <section class="section" id="free"><div class="free-panel"><div class="free-copy"><span class="section-kicker">Open access</span><h2>Begin with free resources.</h2><p>Explore the free section first. As the library grows, resources will be clearly marked so you can understand what is open and what requires access.</p></div><a class="button" href="library.html">Explore free library <svg class="icon"><use href="#i-arrow"/></svg></a></div></section>
+
+  <section class="section"><div class="section-head"><div><span class="section-kicker">Simple by design</span><h2>Three steps. A clearer starting point.</h2><p>No complicated process. Find a topic, choose a resource and get learning.</p></div></div>
+    <div class="steps"><article class="step"><span class="step-no">01</span><h3>Choose a subject or level</h3><p>Start with the area you are studying or the kind of material you need.</p></article><article class="step"><span class="step-no">02</span><h3>Find the right resource</h3><p>Compare notes, books, questions and guides in the relevant section.</p></article><article class="step"><span class="step-no">03</span><h3>Learn at your pace</h3><p>Use the material for focused study, revision or independent learning.</p></article></div>
   </section>
 
-  <section class="section" id="subjects" aria-labelledby="subjectsTitle">
-    <div class="section-head"><div><h2 id="subjectsTitle">Explore by subject</h2><p>Key learning areas, organised in one place.</p></div></div>
-    <div class="subjects">
-      <a class="subject-pill" href="library.html"><svg class="icon"><use href="#i-briefcase"/></svg>Business</a>
-      <a class="subject-pill" href="library.html"><svg class="icon"><use href="#i-chart"/></svg>Economics</a>
-      <a class="subject-pill" href="library.html"><svg class="icon"><use href="#i-code"/></svg>Technology & AI</a>
-      <a class="subject-pill" href="library.html"><svg class="icon"><use href="#i-atom"/></svg>Science</a>
-      <a class="subject-pill" href="library.html"><svg class="icon"><use href="#i-target"/></svg>Mathematics</a>
-      <a class="subject-pill" href="library.html"><svg class="icon"><use href="#i-book"/></svg>Books & Philosophy</a>
-    </div>
-  </section>
-
-  <section class="section" id="free">
-    <div class="free-panel">
-      <div><div class="free-kicker">Open learning</div><h2>Start with free resources.</h2><p>Discover selected notes, practice material and learning resources before exploring the wider library.</p></div>
-      <a class="btn btn-primary" href="library.html">Explore free section <svg class="icon"><use href="#i-arrow"/></svg></a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <span class="footer-brand">Tloribless</span>
-    <span>Built for Your next Move.</span>
-    <nav class="footer-links" aria-label="Footer links"><a href="library.html">Library</a><a href="#free">Free Resources</a><a href="#browse">Categories</a></nav>
-  </footer>
+  <footer class="footer"><div class="footer-main"><div><a class="footer-brand" href="homepage-demo.html"><img src="tloribless-logo.png" alt=""><span><strong>Tloribless</strong><small>Built for Your next Move.</small></span></a><p class="footer-note">A thoughtfully organised place for study resources, useful knowledge and lifelong learning.</p></div>
+    <div class="footer-links"><div class="footer-col"><strong>Explore</strong><a href="library.html">Study library</a><a href="#subjects">Subjects</a><a href="#levels">Study levels</a></div><div class="footer-col"><strong>Resources</strong><a href="#free">Free resources</a><a href="#library">Study material</a><a href="#library">Exam preparation</a></div><div class="footer-col"><strong>Tloribless</strong><a href="#discover">Home</a><a href="library.html">All resources</a></div></div>
+  </div><div class="footer-bottom"><span>© 2026 Tloribless. All rights reserved.</span><span>Built for learning. Designed for progress.</span></div></footer>
 </main>
-<div class="dialog-backdrop" id="dialogBackdrop" role="presentation">
-  <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
-    <div class="dialog-head"><h3 id="dialogTitle">Preview</h3><button class="close" id="closeDialog" aria-label="Close"><svg class="icon"><use href="#i-more"/></svg></button></div>
-    <p id="dialogText">This is a homepage design preview.</p>
-    <span class="demo-label">Design preview · Not connected yet</span>
-  </section>
-</div>
 <script>
-(function(){
-  const panels={notify:document.getElementById("notifyPanel"),profile:document.getElementById("profilePanel"),menu:document.getElementById("menuPanel")};
-  const buttons={notify:document.getElementById("notifyBtn"),profile:document.getElementById("profileBtn"),menu:document.getElementById("menuBtn")};
-  function closePanels(){Object.values(panels).forEach(p=>p.classList.remove("open"));Object.values(buttons).forEach(b=>b.setAttribute("aria-expanded","false"))}
-  Object.keys(buttons).forEach(key=>buttons[key].addEventListener("click",e=>{e.stopPropagation();const open=!panels[key].classList.contains("open");closePanels();if(open){panels[key].classList.add("open");buttons[key].setAttribute("aria-expanded","true")}}));
-  document.addEventListener("click",closePanels);
-  Object.values(panels).forEach(p=>p.addEventListener("click",e=>e.stopPropagation()));
-  const dialog=document.getElementById("dialogBackdrop"),title=document.getElementById("dialogTitle"),copy=document.getElementById("dialogText");
-  const messages={
-    downloads:["Downloads","This shortcut is reserved for a user's downloaded study files. Download management will be connected when the account system is built."],
-    saved:["Saved resources","This area will collect notes, books and other resources that a learner saves for later."],
-    settings:["Settings","A future settings area can include language, notification preferences, privacy and accessibility controls."]
-  };
-  function showDialog(key){const data=messages[key]||messages.settings;title.textContent=data[0];copy.textContent=data[1];dialog.classList.add("open");closePanels()}
-  document.querySelectorAll("[data-dialog]").forEach(el=>el.addEventListener("click",()=>showDialog(el.dataset.dialog)));
-  function closeDialog(){dialog.classList.remove("open")}
-  document.getElementById("closeDialog").addEventListener("click",closeDialog);
-  dialog.addEventListener("click",e=>{if(e.target===dialog)closeDialog()});
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDialog();closePanels()}});
-  const input=document.getElementById("searchInput"),cards=[...document.querySelectorAll(".category-card")];
-  document.getElementById("siteSearch").addEventListener("submit",e=>e.preventDefault());
-  input.addEventListener("input",()=>{
-    const q=input.value.trim().toLowerCase();
-    cards.forEach(card=>{const text=(card.innerText+" "+(card.dataset.search||"")).toLowerCase();card.style.display=(!q||text.includes(q))?"":"none"});
-    document.getElementById("browse").scrollIntoView({behavior:"smooth",block:"start"});
+(() => {
+  const search = document.getElementById('siteSearch');
+  const status = document.getElementById('searchStatus');
+  const message = document.getElementById('searchMessage');
+  const clear = document.getElementById('clearSearch');
+  const empty = document.getElementById('noResults');
+  const searchable = [...document.querySelectorAll('[data-searchable]')];
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+  function filter(query) {
+    const q = query.trim().toLowerCase();
+    let matches = 0;
+    searchable.forEach((item) => {
+      const haystack = (item.textContent + ' ' + (item.dataset.searchable || '')).toLowerCase();
+      const match = !q || haystack.includes(q);
+      item.hidden = !match;
+      if (match) matches++;
+    });
+    status.classList.toggle('show', Boolean(q));
+    empty.classList.toggle('show', Boolean(q) && matches === 0);
+    if (q) message.textContent = matches ? (matches + ' matching areas found for "' + query.trim() + '"') : ('No matches for "' + query.trim() + '"');
+  }
+  search.addEventListener('input', () => filter(search.value));
+  clear.addEventListener('click', () => { search.value = ''; filter(''); search.focus(); });
+  document.querySelectorAll('.nav a').forEach(link => link.addEventListener('click', () => {
+    nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+  menuToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
   });
 })();
 </script>
