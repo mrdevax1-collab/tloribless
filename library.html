@@ -37,13 +37,13 @@ h1{font-size:clamp(32px,5vw,46px);line-height:1.08;letter-spacing:-.06em;margin:
 .filter{height:35px;padding:0 13px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#66728a;font-size:11px;font-weight:750}
 .filter:hover,.filter.active{border-color:#c6cdf7;background:var(--blue-soft);color:var(--blue-dark)}
 .collection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.collection{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;min-height:190px;transition:transform .17s,border-color .17s,box-shadow .17s}
-.collection:hover{transform:translateY(-2px);border-color:#cbd1f5;box-shadow:var(--shadow)}
-.collection-top{display:flex;align-items:center;gap:13px}
+.collection{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:23px;min-height:158px;transition:transform .17s,border-color .17s,box-shadow .17s}
+.collection:hover,.collection.focused{transform:translateY(-2px);border-color:#aeb9ff;box-shadow:var(--shadow)}
+.collection-top{display:flex;align-items:center;gap:14px}.collection-top>div{min-width:0}.collection-number{display:block;font-size:10px;font-weight:800;letter-spacing:.12em;color:#98a1b1;margin-bottom:3px}
 .collection-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:var(--tone);color:var(--accent);flex:none}
 .collection-icon .icon{width:23px;height:23px}
-.collection h2{font-size:17px;letter-spacing:-.035em;margin:0;line-height:1.25}
-.collection p{font-size:12px;color:var(--muted);line-height:1.65;margin:13px 0 15px;max-width:500px}
+.collection h2{font-size:18px;letter-spacing:-.04em;margin:0;line-height:1.25}
+.collection p{font-size:12px;color:var(--muted);line-height:1.65;margin:14px 0 13px;max-width:500px}
 .topic-list{display:flex;flex-wrap:wrap;gap:7px}
 .topic{display:inline-flex;align-items:center;padding:6px 9px;border-radius:8px;background:#f5f6fa;color:#647088;font-size:10px;font-weight:700}
 .collection-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:13px;border-top:1px solid #eff1f5}
@@ -76,6 +76,11 @@ h1{font-size:clamp(32px,5vw,46px);line-height:1.08;letter-spacing:-.06em;margin:
 <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8.5 15.5A7 7 0 1 1 15.5 15.5C14.4 16.3 14 17 14 18h-4c0-1-.4-1.7-1.5-2.5z"/></symbol>
 <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14M12 7C9 4 5 4 2 5v14c4-1 7-1 10 2M12 7c3-3 7-3 10-2v14c-4-1-7-1-10 2"/></symbol>
 <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 6-7"/></symbol>
+<symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5a4 4 0 0 0-7-2 4 4 0 0 0-1 7 4 4 0 0 0 1 7 4 4 0 0 0 7-2zM12 5a4 4 0 0 1 7-2 4 4 0 0 1 1 7 4 4 0 0 1-1 7 4 4 0 0 1-7-2zM12 5v15"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+<symbol id="i-calculator" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8v4H8zM8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></symbol>
 </svg>
 <header class="header"><div class="shell header-in">
   <a class="brand" href="index.html"><img src="brand-mark.svg" alt=""><span><span class="brand-name">tloribless</span><span class="brand-tag">Built for Your next Move.</span></span></a>
@@ -87,44 +92,41 @@ h1{font-size:clamp(32px,5vw,46px);line-height:1.08;letter-spacing:-.06em;margin:
   <div class="search-row">
     <label class="search-box"><svg class="icon"><use href="#i-search"/></svg><input id="librarySearch" type="search" placeholder="Search categories, subjects or topics" aria-label="Search the library"></label>
   </div>
-  <div class="filter-row" aria-label="Filter library categories">
-    <button class="filter active" data-filter="all">All categories</button>
-    <button class="filter" data-filter="school">School</button>
-    <button class="filter" data-filter="college">College</button>
-    <button class="filter" data-filter="exams">Competitive exams</button>
-    <button class="filter" data-filter="skills">Skills</button>
-    <button class="filter" data-filter="books">Books & Reading</button>
-  </div>
   <div class="collection-grid" id="collections">
-    <article class="collection" id="school" data-category="school" style="--tone:#eaf5ef;--accent:#2e795b">
-      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-graduation"/></svg></span><h2>School</h2></div>
-      <p>School-level learning materials arranged around classes and boards.</p>
-      <div class="topic-list"><span class="topic">Classes 1–12</span><span class="topic">CBSE</span><span class="topic">ICSE</span><span class="topic">State Boards</span><span class="topic">NCERT</span><span class="topic">Notes & Questions</span></div>
-      <div class="collection-foot"><span>School learning</span><a class="open-link" href="#school">Explore <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <article class="collection" id="business" data-category="business" style="--tone:#eaf5ef;--accent:#2e795b">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-briefcase"/></svg></span><div><span class="collection-number">01</span><h2>Business & Entrepreneurship</h2></div></div>
+      <p>Understand how businesses are started, organised, managed and grown.</p>
+      <div class="collection-foot"><span>Business knowledge</span><a class="open-link" href="#business">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
     </article>
-    <article class="collection" id="college" data-category="college" style="--tone:#f0edff;--accent:#6b59b0">
-      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-building"/></svg></span><h2>College</h2></div>
-      <p>Course and semester-based material for college and university learners.</p>
-      <div class="topic-list"><span class="topic">Degree Courses</span><span class="topic">Semester Notes</span><span class="topic">Assignments</span><span class="topic">Project Reports</span></div>
-      <div class="collection-foot"><span>College learning</span><a class="open-link" href="#college">Explore <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <article class="collection" id="economics" data-category="economics" style="--tone:#eef0ff;--accent:#4b5fe3">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-chart"/></svg></span><div><span class="collection-number">02</span><h2>Economics & Global Trade</h2></div></div>
+      <p>Explore markets, money, economic systems and international trade.</p>
+      <div class="collection-foot"><span>Economics knowledge</span><a class="open-link" href="#economics">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
     </article>
-    <article class="collection" id="exams" data-category="exams" style="--tone:#fff0ed;--accent:#b7554e">
-      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-atom"/></svg></span><h2>Competitive Exams</h2></div>
-      <p>Organised preparation areas for entrance and government examinations.</p>
-      <div class="topic-list"><span class="topic">JEE</span><span class="topic">NEET</span><span class="topic">CUET</span><span class="topic">UPSC</span><span class="topic">SSC</span><span class="topic">Banking</span></div>
-      <div class="collection-foot"><span>Exam preparation</span><a class="open-link" href="#exams">Explore <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <article class="collection" id="ai-data" data-category="ai-data" style="--tone:#f1edff;--accent:#6b59b0">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-brain"/></svg></span><div><span class="collection-number">03</span><h2>AI & Data Science</h2></div></div>
+      <p>Learn artificial intelligence, data concepts and analytical thinking.</p>
+      <div class="collection-foot"><span>Emerging technology</span><a class="open-link" href="#ai-data">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
     </article>
-    <article class="collection" id="skills" data-category="skills" style="--tone:#eaf5fb;--accent:#397a9c">
-      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-lightbulb"/></svg></span><h2>Skills</h2></div>
-      <p>Practical knowledge for digital learning, work and personal development.</p>
-      <div class="topic-list"><span class="topic">Computer & Digital</span><span class="topic">Programming</span><span class="topic">AI & Data</span><span class="topic">Business</span><span class="topic">Communication</span></div>
-      <div class="collection-foot"><span>Practical learning</span><a class="open-link" href="#skills">Explore <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <article class="collection" id="programming" data-category="programming" style="--tone:#eaf5fb;--accent:#397a9c">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-code"/></svg></span><div><span class="collection-number">04</span><h2>Programming & Software</h2></div></div>
+      <p>Build coding foundations and understand how software products work.</p>
+      <div class="collection-foot"><span>Software knowledge</span><a class="open-link" href="#programming">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
     </article>
-    <article class="collection" id="books" data-category="books" style="--tone:#fff4e6;--accent:#a16d2b">
-      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-book-open"/></svg></span><h2>Books & Reading</h2></div>
-      <p>Reading lists and study guides across business, finance and wider knowledge.</p>
-      <div class="topic-list"><span class="topic">Business</span><span class="topic">Finance</span><span class="topic">Biographies</span><span class="topic">Personal Development</span><span class="topic">Literature</span></div>
-      <div class="collection-foot"><span>Reading & knowledge</span><a class="open-link" href="#books">Explore <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <article class="collection" id="computer" data-category="computer" style="--tone:#fff4e6;--accent:#a16d2b">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-monitor"/></svg></span><div><span class="collection-number">05</span><h2>Computer & Digital Literacy</h2></div></div>
+      <p>Develop essential knowledge of computers, online tools and digital systems.</p>
+      <div class="collection-foot"><span>Digital foundations</span><a class="open-link" href="#computer">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    </article>
+    <article class="collection" id="science" data-category="science" style="--tone:#eaf7f5;--accent:#267e78">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-atom"/></svg></span><div><span class="collection-number">06</span><h2>Science & Engineering</h2></div></div>
+      <p>Explore scientific principles, engineering ideas and applied problem-solving.</p>
+      <div class="collection-foot"><span>Scientific knowledge</span><a class="open-link" href="#science">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    </article>
+    <article class="collection" id="mathematics" data-category="mathematics" style="--tone:#fff0ed;--accent:#b7554e">
+      <div class="collection-top"><span class="collection-icon"><svg class="icon"><use href="#i-calculator"/></svg></span><div><span class="collection-number">07</span><h2>Mathematics & Statistics</h2></div></div>
+      <p>Strengthen quantitative reasoning, mathematics, data and probability.</p>
+      <div class="collection-foot"><span>Quantitative knowledge</span><a class="open-link" href="#mathematics">Selected subject <svg class="icon"><use href="#i-arrow"/></svg></a></div>
     </article>
   </div>
   <section id="project-guides">
@@ -141,39 +143,29 @@ h1{font-size:clamp(32px,5vw,46px);line-height:1.08;letter-spacing:-.06em;margin:
 (function(){
   const input=document.getElementById("librarySearch");
   const cards=Array.from(document.querySelectorAll(".collection"));
-  const filters=Array.from(document.querySelectorAll("[data-filter]"));
   const params=new URLSearchParams(location.search);
-  let active=params.get("category")||"all";
-  if(active==="competitive")active="exams";
+  const selected=params.get("category");
   input.value=params.get("q")||"";
   function apply(){
     const q=input.value.trim().toLowerCase();
     let shown=0;
     cards.forEach(card=>{
-      const categoryMatch=active==="all"||card.dataset.category===active;
-      const textMatch=!q||card.textContent.toLowerCase().includes(q);
-      const visible=categoryMatch&&textMatch;
+      const visible=!q||card.textContent.toLowerCase().includes(q);
       card.classList.toggle("hidden",!visible);
+      card.classList.toggle("focused",!q&&selected===card.dataset.category);
       if(visible)shown++;
     });
-    filters.forEach(button=>button.classList.toggle("active",button.dataset.filter===active));
     let empty=document.getElementById("emptyState");
     if(!shown&&!empty){
       empty=document.createElement("div");empty.id="emptyState";empty.className="empty";
-      empty.textContent="No category matches that search. Try another word or choose All categories.";
+      empty.textContent="No subject matches that search. Try another word.";
       document.getElementById("collections").appendChild(empty);
     }else if(shown&&empty)empty.remove();
   }
-  filters.forEach(button=>button.addEventListener("click",()=>{
-    active=button.dataset.filter;
-    const next=new URL(location.href);
-    if(active==="all")next.searchParams.delete("category");else next.searchParams.set("category",active);
-    history.replaceState(null,"",next);
-    apply();
-  }));
   input.addEventListener("input",apply);
   document.getElementById("year").textContent=new Date().getFullYear();
   apply();
+  if(selected){const card=document.querySelector('[data-category="'+CSS.escape(selected)+'"]');if(card)card.scrollIntoView({block:"center",behavior:"smooth"})}
 })();
 </script>
 </body>
