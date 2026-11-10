@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-  <title>Tloribless original logo with transparent outer background</title>
-  <defs>
-    <clipPath id="logoCircle"><circle cx="500" cy="500" r="480"/></clipPath>
-  </defs>
-  <image href="tloribless-logo.png" x="0" y="0" width="1000" height="1000" preserveAspectRatio="xMidYMid meet" clip-path="url(#logoCircle)"/>
-</svg>
